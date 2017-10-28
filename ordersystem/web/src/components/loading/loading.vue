@@ -10,6 +10,6 @@
 </template>
 
 <script>
-    import './spinner.scss'
-    export default{}
+    import './loading.scss'
+    export default {}
 </script>
