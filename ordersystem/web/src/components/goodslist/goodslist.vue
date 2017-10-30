@@ -27,7 +27,8 @@
 	export default {
 		components: {
 			datagrid,
-			fenye
+			fenye,
+			
 		}
 	}
 </script>

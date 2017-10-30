@@ -18,7 +18,9 @@ module.exports = {
             })    
         }),
         app.get('/fenye', function(request, response){
-            db.select('select * from goods limit '+request.qty*(pageNo-1)+','+request.qty, function(rows){
+            
+            db.select('select * from goods limit '+request.query.qty*(request.query.pageNo-1)+','+request.query.qty, function(rows){
+                // console.log(request)s
                 response.send(rows);
             })    
         })
