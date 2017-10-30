@@ -51,7 +51,7 @@
 
 <style lang="scss">
 	.lyy-body{margin-top: 42px;width: 100%;height: 620px;overflow: hidden;
-		.lyy-content{position: absolute; top: 42px; bottom: 0; left: 200px;width: 85%;padding: 20px;}
+		.lyy-content{position: absolute; top: 42px; bottom: 0; left: 200px;width: 85%;padding: 20px;overflow-x:auto; }
 	}
 
 
