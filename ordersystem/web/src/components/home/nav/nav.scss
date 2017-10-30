@@ -1,0 +1,18 @@
+.lyy-nav-content{position: absolute; top: 0; bottom: 0; left: 0; width: 200px; border-right: solid 1px #ccc;
+	overflow-x: hidden; overflow-y: auto;margin-top: 42px;
+	transition: width 0.5s;
+	.lyy-nav-item{
+		/*max-height: 40px;*/
+		overflow: hidden;
+		transition: max-height 0.5s;
+		/*border-bottom: solid 1px #ccc;*/
+		>a:not(.btn){
+			padding: 10px 15px; display: block;box-sizing:border-box;
+			overflow: hidden; white-space: nowrap; text-overflow:ellipsis;
+			&:hover{
+				color:#ff2d4b;
+			}
+		}	
+	}
+	
+}
