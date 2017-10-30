@@ -7,17 +7,19 @@
 		<div class="form-group">
 		    <button type="button" class="btn btn-success">添加菜品</button>
 		 </div>
-		<datagrid api="getgoods" cols="id,saleprice,price,title"></datagrid>
+		<datagrid api="getgoods" cols=""></datagrid>
+		<fenye api="getAll"></fenye>
 	</div>
 </template>
 
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
-	//generate three buttons
-	//$prent
+	import fenye from '../fenye/fenye.vue'
+
 	export default {
 		components: {
-			datagrid
+			datagrid,
+			fenye
 		}
 	}
 </script>

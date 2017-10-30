@@ -11,6 +11,16 @@ module.exports = {
             db.select('select * from goods limit 10', function(rows){
                 response.send(rows);
             })    
+        }),
+        app.get('/getAll', function(request, response){
+            db.select('select * from goods ', function(rows){
+                response.send(rows);
+            })    
+        }),
+        app.get('/fenye', function(request, response){
+            db.select('select * from goods limit '+request.qty*(pageNo-1)+','+request.qty, function(rows){
+                response.send(rows);
+            })    
         })
 
 
