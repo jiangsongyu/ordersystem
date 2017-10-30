@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div>
-			<router-view></router-view>
+			<!-- <router-view></router-view> -->
 		</div>
 		
 	</div>
@@ -51,7 +51,7 @@
 
 <style lang="scss">
 	.lyy-body{margin-top: 42px;width: 100%;height: 620px;overflow: hidden;
-		.lyy-content{position: absolute; top: 58px; bottom: 0; left: 200px;width: 100%;}
+		.lyy-content{position: absolute; top: 42px; bottom: 0; left: 200px;width: 85%;padding: 20px;}
 	}
 
 

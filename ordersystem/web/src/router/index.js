@@ -15,8 +15,8 @@ var router = new VueRouter({
 			name: 'home',
 			component: HomeComponent,
 			children: [{
-				path: 'goodslist',
-				name: 'goodslist',
+				path: 'menu',
+				name: 'menu',
 				component: GoodsListComponent
 			},{
 				path: 'goodsform',

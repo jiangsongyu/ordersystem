@@ -8,7 +8,7 @@
 			</li> -->
 			<li class="lyy-nav-item" >
 				<a href="javascript:">
-					<span>菜单管理</span>
+					<router-link to="/menu">菜单管理</router-link>
 				</a>
 			</li>
 			<li class="lyy-nav-item" >

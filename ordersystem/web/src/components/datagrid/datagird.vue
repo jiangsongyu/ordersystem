@@ -1,15 +1,19 @@
 <template>
 	<div>
-		<h1>datagrid</h1>
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th v-for="(value, key) in dataset[0]" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{key}}</th>
+					<th>candel</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="(obj, index) in dataset">
 					<td v-for="(value, key) in obj" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{value}}</td>
+					<td>
+						<button type="button" class="btn btn-success btn-xs">修改</button>
+						<button type="button" class="btn btn-danger btn-xs">删除</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
