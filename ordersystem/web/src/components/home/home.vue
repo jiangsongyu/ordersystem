@@ -10,15 +10,6 @@
 				<router-view class="lyy-viewer"></router-view>
 			</div>
 		</div>
-		<!-- <div class="lyy-footer">@dk</div> -->
-		<!-- <div class="toolbar">
-			
-			<input type="button" value="添加商品">
-			
-			<input type="button" value="添加商品">s
-			<input type="button" value="添加商品">
-			
-		</div> -->
 		<div>
 			<router-view></router-view>
 		</div>
@@ -57,3 +48,11 @@
 		}
 	}
 </script>
+
+<style lang="scss">
+	.lyy-body{margin-top: 42px;width: 100%;height: 620px;overflow: hidden;
+		.lyy-content{position: absolute; top: 58px; bottom: 0; left: 200px;width: 100%;}
+	}
+
+
+</style>
