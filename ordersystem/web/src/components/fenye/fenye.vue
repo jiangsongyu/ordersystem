@@ -28,7 +28,7 @@
                    //   </a>
                    // </li>`;
                    // ul.append(html);
-                   for(var i=0; i < 10; i++){
+                   for(var i=0; i < nub; i++){
                        var li = $('<li/>');
                        var a = $('<a/>').text(i+1);
                        a.appendTo(li);
@@ -44,7 +44,7 @@
                    ul.appendTo(nav);
 
                    nav.appendTo($('.lyy-content'));
-                   ul.children('li').eq(1).addClass('active');
+                   ul.children('li').eq(0).addClass('active');
                    ul.on('click','li',function(){
                         $(this).addClass('active').siblings('li').removeClass('active');
                         var num = ($(this).text())*1;
@@ -90,4 +90,7 @@
         }
     }
 </script>
+<style type="text/css">
+  nav ul li a{cursor: pointer;}
+</style>
 

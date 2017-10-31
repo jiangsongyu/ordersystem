@@ -7,28 +7,27 @@
 		<div class="form-group">
 		    <button type="button" class="btn btn-success">添加菜品</button>
 		 </div>
-		<datagrid api="getgoods" cols=""></datagrid>
+		<datagrid api="getgoods" apii="shanchu" cols=""></datagrid>
 		<fenye api="getAll"></fenye>
-		<div>
-	      <el-button>默认按钮</el-button>
-	      <el-button type="primary">主要按钮</el-button>
-	      <el-button type="success">成功按钮</el-button>
-	      <el-button type="info">信息按钮</el-button>
-	      <el-button type="warning">警告按钮</el-button>
-	      <el-button type="danger">危险按钮</el-button>
-    	</div>//test element ui  success
 	</div>
 </template>
 
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
-
+	import $ from 'jquery'
+	// $(function(){
+	// 	console.log($('.btn-success'))
+	// 	console.log($('#delbtn'))
+	// 	$('#delbtn').on('click',function(e){
+	// 		console.log(e.target)
+	// 		console.log(666)
+	// 	})
+	// })
 	export default {
 		components: {
 			datagrid,
-			fenye,
-			
+			fenye
 		}
 	}
 </script>

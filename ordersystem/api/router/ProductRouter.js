@@ -8,18 +8,25 @@ module.exports = {
     Register: function(app){
 
         app.get('/getgoods', function(request, response){
-            db.select('select * from goods limit 10', function(rows){
+            db.all('select * from goods limit 10', function(rows){
                 response.send(rows);
             })    
         }),
         app.get('/getAll', function(request, response){
-            db.select('select * from goods ', function(rows){
+            db.all('select * from goods ', function(rows){
                 response.send(rows);
             })    
         }),
         app.get('/fenye', function(request, response){
             
-            db.select('select * from goods limit '+request.query.qty*(request.query.pageNo-1)+','+request.query.qty, function(rows){
+            db.all('select * from goods limit '+request.query.qty*(request.query.pageNo-1)+','+request.query.qty, function(rows){
+                // console.log(request)s
+                response.send(rows);
+            })    
+        }),
+        app.get('/shanchu', function(request, response){
+            console.log(request.query.id)
+            db.all('delete from goods where id='+request.query.id, function(rows){
                 // console.log(request)s
                 response.send(rows);
             })    

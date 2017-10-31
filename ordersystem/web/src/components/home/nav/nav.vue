@@ -18,7 +18,8 @@
 			</li>	
 			<li class="lyy-nav-item" >
 				<a href="javascript:">
-					<span>订单管理</span>
+				<span>订单管理</span>
+					<!-- <router-link to="/order">订单管理</router-link> -->
 				</a>
 			</li>				
 		</ul>
