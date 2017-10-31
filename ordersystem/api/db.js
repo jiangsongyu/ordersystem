@@ -12,6 +12,7 @@ var pool  = mysql.createPool({
 
 module.exports = {
 	all: function(tsql, callback){
+   console.log(tsql)
 		pool.query(tsql, function(error, rows){
 			callback(rows);
 		})

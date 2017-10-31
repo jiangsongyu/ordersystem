@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<div class="form-group">
-		    <input type="text" class="form-control" id="search" placeholder="搜索">
-		    <button type="button" class="btn btn-info">搜索</button>
+		    <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names">
+		    <button type="button" class="btn btn-info" @click.self="search">搜索</button>
 		 </div>
 		<div class="form-group">
 		    <button type="button" class="btn btn-success" @click="dialogFormVisible = true">添加菜品</button>
@@ -24,11 +24,7 @@
 		      </div>
 		    </el-dialog>
 		 </div>
-<<<<<<< HEAD
 		<datagrid api="getgoods" apii="shanchu" cols=""></datagrid>
-=======
-		<datagrid api="getgoods" cols="id,title,price,imgurl"></datagrid>
->>>>>>> 16d28f7e4248f70d23d5e6bca2f86f62c62c3fd9
 		<fenye api="getAll"></fenye>
 	</div>
 </template>
@@ -36,8 +32,6 @@
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
-<<<<<<< HEAD
-	import $ from 'jquery'
 	// $(function(){
 	// 	console.log($('.btn-success'))
 	// 	console.log($('#delbtn'))
@@ -46,11 +40,6 @@
 	// 		console.log(666)
 	// 	})
 	// })
-	export default {
-		components: {
-			datagrid,
-			fenye
-=======
 	import Vue from 'vue'
 	import $ from 'jquery'
 	export default {
@@ -68,17 +57,29 @@
 		          price: '',
 		          imgurl: '' 
 		        },
-		        formLabelWidth: '120px'
+		        formLabelWidth: '120px',
+		        names:''
 		    };
 		},
 		methods:{
 			additem:function(){console.log(6660)	
 				var self = this;console.log(self.form.title);
 				$.get('http://localhost:88/additem',{'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl},function(res){
-					console.log(res);
+					self.form.title='';
+					self.form.price='';
+					self.form.imgurl='';
+					alert('添加成功！');
+					// $.get('http://localhost:88/getgoods', function(data) {
+					// 	console.log(data)
+					// });
 				})
+			},
+			search:function(){
+				var self = this;
+				$.get('http://localhost:88/search',{'names':self.names}, function(data) {
+					console.log(data)
+				});
 			}
->>>>>>> 16d28f7e4248f70d23d5e6bca2f86f62c62c3fd9
 		}
   		
 	}
@@ -87,7 +88,7 @@
 <style lang="scss">
 	.form-group{overflow: hidden;	
 		input{float: left;width: 200px;}
-		button{float: left;}
+		/*button{float: left;}*/
 		&:first-child{float: left;}
 		&:nth-child(2){width: 150px;float: right;}
 	}
