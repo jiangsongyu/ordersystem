@@ -5,9 +5,30 @@
 		    <button type="button" class="btn btn-info">搜索</button>
 		 </div>
 		<div class="form-group">
-		    <button type="button" class="btn btn-success">添加菜品</button>
+		    <button type="button" class="btn btn-success" @click="dialogFormVisible = true">添加菜品</button>
+		    <el-dialog title="添加菜品" :visible.sync="dialogFormVisible">
+		      <el-form :model="form">
+		        <el-form-item label="菜品名称" :label-width="formLabelWidth">
+		          <el-input v-model="form.title" auto-complete="off"></el-input>
+		        </el-form-item>
+		        <el-form-item label="菜品价格" :label-width="formLabelWidth">
+		          <el-input v-model="form.price" auto-complete="off"></el-input>
+		        </el-form-item>
+		        <el-form-item label="菜品图片" :label-width="formLabelWidth">
+		          <el-input v-model="form.imgurl" auto-complete="off"></el-input>
+		        </el-form-item>
+		      </el-form>
+		      <div slot="footer" class="dialog-footer">
+		        <el-button @click="dialogFormVisible = false">取 消</el-button>
+		        <el-button type="primary" @click.self="additem"  >确 定</el-button>
+		      </div>
+		    </el-dialog>
 		 </div>
+<<<<<<< HEAD
 		<datagrid api="getgoods" apii="shanchu" cols=""></datagrid>
+=======
+		<datagrid api="getgoods" cols="id,title,price,imgurl"></datagrid>
+>>>>>>> 16d28f7e4248f70d23d5e6bca2f86f62c62c3fd9
 		<fenye api="getAll"></fenye>
 	</div>
 </template>
@@ -15,6 +36,7 @@
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
+<<<<<<< HEAD
 	import $ from 'jquery'
 	// $(function(){
 	// 	console.log($('.btn-success'))
@@ -28,7 +50,37 @@
 		components: {
 			datagrid,
 			fenye
+=======
+	import Vue from 'vue'
+	import $ from 'jquery'
+	export default {
+		components: {
+			datagrid,
+			fenye,
+			
+		},
+		data() {
+		    return {
+		       	dialogTableVisible: false,
+		        dialogFormVisible: false,
+		        form: {
+		          title: '',
+		          price: '',
+		          imgurl: '' 
+		        },
+		        formLabelWidth: '120px'
+		    };
+		},
+		methods:{
+			additem:function(){console.log(6660)	
+				var self = this;console.log(self.form.title);
+				$.get('http://localhost:88/additem',{'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl},function(res){
+					console.log(res);
+				})
+			}
+>>>>>>> 16d28f7e4248f70d23d5e6bca2f86f62c62c3fd9
 		}
+  		
 	}
 </script>
 
