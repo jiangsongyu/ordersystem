@@ -24,11 +24,7 @@
 		      </div>
 		    </el-dialog>
 		 </div>
-<<<<<<< HEAD
-		<datagrid api="getgoods" apii="shanchu" cols=""></datagrid>
-=======
-		<datagrid api="getgoods" cols="id,title,price,imgurl"></datagrid>
->>>>>>> 16d28f7e4248f70d23d5e6bca2f86f62c62c3fd9
+		<datagrid api="getgoods" apii="shanchu" cols="id,title,price,imgurl,type"></datagrid>
 		<fenye api="getAll"></fenye>
 	</div>
 </template>
@@ -36,8 +32,6 @@
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
-<<<<<<< HEAD
-	import $ from 'jquery'
 	// $(function(){
 	// 	console.log($('.btn-success'))
 	// 	console.log($('#delbtn'))
@@ -46,11 +40,7 @@
 	// 		console.log(666)
 	// 	})
 	// })
-	export default {
-		components: {
-			datagrid,
-			fenye
-=======
+	
 	import Vue from 'vue'
 	import $ from 'jquery'
 	export default {
@@ -78,7 +68,6 @@
 					console.log(res);
 				})
 			}
->>>>>>> 16d28f7e4248f70d23d5e6bca2f86f62c62c3fd9
 		}
   		
 	}

@@ -6,12 +6,12 @@ var pool  = mysql.createPool({
   user     : 'root',
   password : '',
   port: 3306,
-  database: 'pro'
+  database: 'huijiayou'
 });
 
 
 module.exports = {
-	all: function(tsql, callback){
+	all: function(tsql, callback){console.log(tsql);
 		pool.query(tsql, function(error, rows){
 			callback(rows);
 		})

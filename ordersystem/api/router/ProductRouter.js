@@ -18,8 +18,6 @@ module.exports = {
             })    
         }),
         app.get('/fenye', function(request, response){
-<<<<<<< HEAD
-            
             db.all('select * from goods limit '+request.query.qty*(request.query.pageNo-1)+','+request.query.qty, function(rows){
                 // console.log(request)s
                 response.send(rows);
@@ -28,19 +26,23 @@ module.exports = {
         app.get('/shanchu', function(request, response){
             console.log(request.query.id)
             db.all('delete from goods where id='+request.query.id, function(rows){
-=======
-            db.select('select * from goods limit '+request.query.qty*(request.query.pageNo-1)+','+request.query.qty, function(rows){
->>>>>>> 16d28f7e4248f70d23d5e6bca2f86f62c62c3fd9
-                // console.log(request)s
                 response.send(rows);
             })    
         }),
-        app.get('/additem', function(request, response){console.log(request.query)
+        app.get('/additem', function(request, response){
             db.select('insert into goods(title,price,imgurl) values(request.query.title,request.query.price,request.query.imgurl) ', function(rows){
                 response.send(rows);
             })    
         })
-
+        ,
+        app.get('/xiugai', function(request, response){
+            // console.log(request.query.type)
+            db.all('UPDATE goods SET title=' + '"' + request.query.title + '"' + ', price=' + request.query.price + ', imgurl=' + '"' + +request.query.imgurl + '"' + ', type=' + '"' + request.query.type + '"' + ' WHERE id=' + request.query.id, function(rows){
+                
+                // console.log(request)
+                response.send(rows);
+            })    
+        })
 
     }
 }
