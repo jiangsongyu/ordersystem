@@ -18,9 +18,13 @@ module.exports = {
             })    
         }),
         app.get('/fenye', function(request, response){
-            
             db.select('select * from goods limit '+request.query.qty*(request.query.pageNo-1)+','+request.query.qty, function(rows){
                 // console.log(request)s
+                response.send(rows);
+            })    
+        }),
+        app.get('/additem', function(request, response){console.log(request.query)
+            db.select('insert into goods(title,price,imgurl) values(request.query.title,request.query.price,request.query.imgurl) ', function(rows){
                 response.send(rows);
             })    
         })

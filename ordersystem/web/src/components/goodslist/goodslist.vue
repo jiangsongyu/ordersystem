@@ -5,31 +5,62 @@
 		    <button type="button" class="btn btn-info">搜索</button>
 		 </div>
 		<div class="form-group">
-		    <button type="button" class="btn btn-success">添加菜品</button>
+		    <button type="button" class="btn btn-success" @click="dialogFormVisible = true">添加菜品</button>
+		    <el-dialog title="添加菜品" :visible.sync="dialogFormVisible">
+		      <el-form :model="form">
+		        <el-form-item label="菜品名称" :label-width="formLabelWidth">
+		          <el-input v-model="form.title" auto-complete="off"></el-input>
+		        </el-form-item>
+		        <el-form-item label="菜品价格" :label-width="formLabelWidth">
+		          <el-input v-model="form.price" auto-complete="off"></el-input>
+		        </el-form-item>
+		        <el-form-item label="菜品图片" :label-width="formLabelWidth">
+		          <el-input v-model="form.imgurl" auto-complete="off"></el-input>
+		        </el-form-item>
+		      </el-form>
+		      <div slot="footer" class="dialog-footer">
+		        <el-button @click="dialogFormVisible = false">取 消</el-button>
+		        <el-button type="primary" @click.self="additem"  >确 定</el-button>
+		      </div>
+		    </el-dialog>
 		 </div>
-		<datagrid api="getgoods" cols=""></datagrid>
+		<datagrid api="getgoods" cols="id,title,price,imgurl"></datagrid>
 		<fenye api="getAll"></fenye>
-		<div>
-	      <el-button>默认按钮</el-button>
-	      <el-button type="primary">主要按钮</el-button>
-	      <el-button type="success">成功按钮</el-button>
-	      <el-button type="info">信息按钮</el-button>
-	      <el-button type="warning">警告按钮</el-button>
-	      <el-button type="danger">危险按钮</el-button>
-    	</div>//test element ui  success
 	</div>
 </template>
 
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
-
+	import Vue from 'vue'
+	import $ from 'jquery'
 	export default {
 		components: {
 			datagrid,
 			fenye,
 			
+		},
+		data() {
+		    return {
+		       	dialogTableVisible: false,
+		        dialogFormVisible: false,
+		        form: {
+		          title: '',
+		          price: '',
+		          imgurl: '' 
+		        },
+		        formLabelWidth: '120px'
+		    };
+		},
+		methods:{
+			additem:function(){console.log(6660)	
+				var self = this;console.log(self.form.title);
+				$.get('http://localhost:88/additem',{'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl},function(res){
+					console.log(res);
+				})
+			}
 		}
+  		
 	}
 </script>
 
