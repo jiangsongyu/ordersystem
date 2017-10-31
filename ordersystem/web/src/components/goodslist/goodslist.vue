@@ -8,6 +8,9 @@
 		    <button type="button" class="btn btn-success" @click="dialogFormVisible = true">添加菜品</button>
 		    <el-dialog title="添加菜品" :visible.sync="dialogFormVisible">
 		      <el-form :model="form">
+		        <el-form-item label="菜品类型" :label-width="formLabelWidth">
+		          <el-input v-model="form.type" auto-complete="off"></el-input>
+		        </el-form-item>
 		        <el-form-item label="菜品名称" :label-width="formLabelWidth">
 		          <el-input v-model="form.title" auto-complete="off"></el-input>
 		        </el-form-item>
@@ -24,11 +27,8 @@
 		      </div>
 		    </el-dialog>
 		 </div>
-<<<<<<< HEAD
 		<datagrid api="getgoods" apii="shanchu" cols="id,title,price,imgurl,type"></datagrid>
-=======
-		<datagrid api="getgoods" apii="shanchu" cols=""></datagrid>
->>>>>>> bc2e77b1f1b2501180b9bc3b9a61eac8c19bd059
+
 		<fenye api="getAll"></fenye>
 	</div>
 </template>
@@ -36,18 +36,7 @@
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
-	// $(function(){
-	// 	console.log($('.btn-success'))
-	// 	console.log($('#delbtn'))
-	// 	$('#delbtn').on('click',function(e){
-	// 		console.log(e.target)
-	// 		console.log(666)
-	// 	})
-	// })
-<<<<<<< HEAD
-	
-=======
->>>>>>> bc2e77b1f1b2501180b9bc3b9a61eac8c19bd059
+
 	import Vue from 'vue'
 	import $ from 'jquery'
 	export default {
@@ -63,7 +52,8 @@
 		        form: {
 		          title: '',
 		          price: '',
-		          imgurl: '' 
+		          imgurl: '',
+		          type: ''
 		        },
 		        formLabelWidth: '120px',
 		        names:''
@@ -72,10 +62,11 @@
 		methods:{
 			additem:function(){console.log(6660)	
 				var self = this;console.log(self.form.title);
-				$.get('http://localhost:88/additem',{'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl},function(res){
+				$.get('http://localhost:88/additem',{'type':self.form.type,'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl},function(res){
 					self.form.title='';
 					self.form.price='';
 					self.form.imgurl='';
+					self.form.type='';
 					alert('添加成功！');
 					// $.get('http://localhost:88/getgoods', function(data) {
 					// 	console.log(data)
