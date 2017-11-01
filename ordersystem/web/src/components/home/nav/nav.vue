@@ -13,13 +13,12 @@
 			</li>
 			<li class="lyy-nav-item" >
 				<a href="javascript:">
-					<span>后厨管理</span>
+					<router-link to="/order">订单管理</router-link>
 				</a>
 			</li>	
 			<li class="lyy-nav-item" >
 				<a href="javascript:">
-				<span>订单管理</span>
-					<!-- <router-link to="/order">订单管理</router-link> -->
+					<router-link to="/menu">历史订单</router-link>
 				</a>
 			</li>				
 		</ul>
