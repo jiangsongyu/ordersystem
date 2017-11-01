@@ -27,7 +27,7 @@
 		      </div>
 		    </el-dialog>
 		 </div>
-		<datagrid api="getgoods" apii="shanchu" cols="id,title,price,imgurl,type"></datagrid>
+		<datagrid api="getgoods" apii="shanchu" apiii="xiugai" cols="id,title,price,imgurl,type"></datagrid>
 
 		<fenye api="getAll"></fenye>
 	</div>

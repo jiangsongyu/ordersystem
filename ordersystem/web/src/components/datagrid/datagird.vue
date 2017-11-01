@@ -102,12 +102,17 @@
 				this.dialogFormVisible = false;
 				var self = this;
 				console.log(self.form.title, self.form.price, self.form.imgurl, self.form.type, self.form.id);
-				$.get('http://localhost:88/xiugai',{'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl,'type':self.form.type, 'id': self.form.id}, function(data) {
-					console.log(data);//此处写发请求刷新页面
+				$.get('http://localhost:88/' +self.apiii,{'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl,'type':self.form.type, 'id': self.form.id}, function(data) {
+					// console.log(data);//此处写发请求刷新页面
+					$.get('http://localhost:88/'+self.api, function(data) {
+						console.log(data)
+						self.dataset = data;
+					});
+
 				});
 			}
 		},
-		props: ['api', 'cols','apii'],
+		props: ['api', 'cols','apii','apiii'],
 		mounted: function(){
 			var self = this;
 			http.get({
