@@ -28,19 +28,19 @@
 		    </el-dialog>
 		 </div>
 		<datagrid api="getgoods" apii="shanchu" apiii="xiugai" cols="id,title,price,imgurl,type"></datagrid>
-		<!-- <fenye api="getAll" apii="fenye"></fenye> -->
+		<fenye api="getOrd" apii="fenye"></fenye>
 	</div>
 </template>
 
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
-	// import fenye from '../fenye/fenye.vue'
+	import fenye from '../fenye/fenye.vue'
 	import Vue from 'vue'
 	import $ from 'jquery'
 	export default {
 		components: {
-			datagrid
-			// fenye,
+			datagrid,
+			fenye
 			
 		},
 		data() {
