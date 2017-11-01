@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<div class="form-group">
-		    <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names">
-		    <button type="button" class="btn btn-info" @click.self="search">搜索</button>
+		    <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names" @keyup.13="search('search')">
+		    <button type="button" class="btn btn-info" @click.self="search('search')" >搜索</button>
 		 </div>
 		<div class="form-group">
 		    <button type="button" class="btn btn-success" @click="dialogFormVisible = true">添加菜品</button>
@@ -24,30 +24,14 @@
 		      </div>
 		    </el-dialog>
 		 </div>
-<<<<<<< HEAD
 		<datagrid api="getgoods" apii="shanchu" cols="id,title,price,imgurl,type"></datagrid>
-=======
-		<datagrid api="getgoods" apii="shanchu" cols=""></datagrid>
->>>>>>> bc2e77b1f1b2501180b9bc3b9a61eac8c19bd059
-		<fenye api="getAll"></fenye>
+		<fenye api="getAll" apii="fenye"></fenye>
 	</div>
 </template>
 
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
-	// $(function(){
-	// 	console.log($('.btn-success'))
-	// 	console.log($('#delbtn'))
-	// 	$('#delbtn').on('click',function(e){
-	// 		console.log(e.target)
-	// 		console.log(666)
-	// 	})
-	// })
-<<<<<<< HEAD
-	
-=======
->>>>>>> bc2e77b1f1b2501180b9bc3b9a61eac8c19bd059
 	import Vue from 'vue'
 	import $ from 'jquery'
 	export default {
@@ -82,11 +66,15 @@
 					// });
 				})
 			},
-			search:function(){
+			search:function(sh){
 				var self = this;
-				$.get('http://localhost:88/search',{'names':self.names}, function(data) {
+				console.log(self.$children[1].dataset)
+				$.get('http://localhost:88/'+sh,{'names':self.names}, function(data) {
 					console.log(data)
+					self.$children[1].dataset = data;
+					self.names = '';
 				});
+
 			}
 		}
   		

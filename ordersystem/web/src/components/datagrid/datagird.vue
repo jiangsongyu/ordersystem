@@ -48,6 +48,7 @@
 	import Vue from 'vue'
 
 	export default {
+
 		data: function(){
 			var colsArray = this.cols ? this.cols.split(',') : [];
 			return {
@@ -62,12 +63,14 @@
 				   id: '',
 				   type:''
 				},
-				formLabelWidth: '120px'
+				formLabelWidth: '120px',
+
 			}
 		},
 		methods:{
 			
 			sm:function(e){
+
 				var se = this;
 				// console.log(e.target)
 				var target = e.target;
@@ -109,12 +112,14 @@
 		},
 		props: ['api', 'cols','apii'],
 		mounted: function(){
+
 			var self = this;
 			http.get({
 				url: this.api
 			}).then(res => {
 				self.dataset = res.data
 			})
+			console.log(self.dataset)
 		},
 		components: {
 			loading

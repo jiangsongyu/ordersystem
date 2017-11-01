@@ -29,30 +29,24 @@ module.exports = {
                 response.send(rows);
             })    
         }),
-<<<<<<< HEAD
-        app.get('/additem', function(request, response){
-            db.select('insert into goods(title,price,imgurl) values(request.query.title,request.query.price,request.query.imgurl) ', function(rows){
-=======
         app.get('/additem', function(request, response){console.log(request.query)
             var price = (request.query.price)*1;
             var tittle = request.query.title;
             var imgurl = request.query.imgurl;
-            db.all('insert into goods(tittle,price,imgurl) values('+'"'+tittle+'"'+','+price+','+'"'+imgurl+'"'+')' , function(rows){
+            db.all('insert into goods(title,price,imgurl) values('+'"'+tittle+'"'+','+price+','+'"'+imgurl+'"'+')' , function(rows){
                 response.send(rows);
             })    
         }),
         app.get('/search', function(request, response){
             console.log(request.query.names)
-            db.all('select * from goods where tittle like '+'"%'+request.query.names+'%"', function(rows){
->>>>>>> bc2e77b1f1b2501180b9bc3b9a61eac8c19bd059
+            db.all('select * from goods where title like '+'"%'+request.query.names+'%"', function(rows){
                 response.send(rows);
             })    
         })
         ,
         app.get('/xiugai', function(request, response){
-            // console.log(request.query.type)
-            db.all('UPDATE goods SET title=' + '"' + request.query.title + '"' + ', price=' + request.query.price + ', imgurl=' + '"' + +request.query.imgurl + '"' + ', type=' + '"' + request.query.type + '"' + ' WHERE id=' + request.query.id, function(rows){
-                
+            console.log(request.query.imgurl)
+            db.all('UPDATE goods SET title=' + '"' + request.query.title + '"' + ', price=' + request.query.price + ', imgurl=' + '"' +request.query.imgurl + '"' + ', type=' + '"' + request.query.type + '"' + ' WHERE id=' + request.query.id, function(rows){
                 // console.log(request)
                 response.send(rows);
             })    
