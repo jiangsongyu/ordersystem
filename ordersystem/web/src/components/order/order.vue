@@ -10,6 +10,7 @@
 </template>
 
 <script type="text/javascript">
+
 	import datagrid from '../datagrid/datagirdorder.vue'
 	import fenye from '../fenye/fenye.vue'
 	import Vue from 'vue'
