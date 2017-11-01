@@ -27,8 +27,10 @@
 		      </div>
 		    </el-dialog>
 		 </div>
+
 		<datagrid api="getgoods" apii="shanchu" apiii="xiugai" cols="id,title,price,imgurl,type"></datagrid>
 		<fenye api="getAll" apii="fenye"></fenye>
+
 	</div>
 </template>
 
@@ -45,7 +47,6 @@
 		},
 		data() {
 		    return {
-		       	dialogTableVisible: false,
 		        dialogFormVisible: false,
 		        form: {
 		          title: '',
@@ -66,9 +67,9 @@
 					self.form.imgurl='';
 					self.form.type='';
 					alert('添加成功！');
-					$.get('http://localhost:88/getgoods', function(data) {
-						console.log(data)
-					});
+					// $.get('http://localhost:88/getgoods', function(data) {
+					// 	console.log(data)
+					// });
 				})
 			},
 			search:function(sh){

@@ -15,9 +15,9 @@
             var self = this;
             var arr = [];
             var dataset = self.$parent.$children[1].dataset;
-            console.log(self.$parent.$children[1].formLabelWidth)
-            
-            console.log(this.api)
+            // console.log(self.$parent.$children[1].formLabelWidth)
+            $('nav').remove();
+            // console.log(this.api)
            $.ajax({
                url: 'http://localhost:88/'+self.api,
                type: 'GET',
