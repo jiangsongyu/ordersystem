@@ -27,24 +27,14 @@
 		      </div>
 		    </el-dialog>
 		 </div>
-<<<<<<< HEAD
-		<datagrid api="getgoods" apii="shanchu" cols="id,title,price,imgurl,type"></datagrid>
-		<fenye api="getAll" apii="fenye"></fenye>
-=======
 		<datagrid api="getgoods" apii="shanchu" apiii="xiugai" cols="id,title,price,imgurl,type"></datagrid>
-
-		<fenye api="getAll"></fenye>
->>>>>>> 07c0e13b297556d8243110f98b136525ab923c47
+		<fenye api="getAll" apii="fenye"></fenye>
 	</div>
 </template>
 
 <script type="text/javascript">
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
-<<<<<<< HEAD
-=======
-
->>>>>>> 07c0e13b297556d8243110f98b136525ab923c47
 	import Vue from 'vue'
 	import $ from 'jquery'
 	export default {
@@ -76,9 +66,9 @@
 					self.form.imgurl='';
 					self.form.type='';
 					alert('添加成功！');
-					// $.get('http://localhost:88/getgoods', function(data) {
-					// 	console.log(data)
-					// });
+					$.get('http://localhost:88/getgoods', function(data) {
+						console.log(data)
+					});
 				})
 			},
 			search:function(sh){

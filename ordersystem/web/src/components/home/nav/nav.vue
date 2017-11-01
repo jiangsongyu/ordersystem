@@ -18,7 +18,7 @@
 			</li>	
 			<li class="lyy-nav-item" >
 				<a href="javascript:">
-					<router-link to="/menu">历史订单</router-link>
+					<router-link to="/history">历史订单</router-link>
 				</a>
 			</li>				
 		</ul>
