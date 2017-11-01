@@ -33,22 +33,29 @@ module.exports = {
             var price = (request.query.price)*1;
             var tittle = request.query.title;
             var imgurl = request.query.imgurl;
+<<<<<<< HEAD
+            db.all('insert into goods(title,price,imgurl) values('+'"'+tittle+'"'+','+price+','+'"'+imgurl+'"'+')' , function(rows){
+=======
             var type = request.query.type;
             db.all('insert into goods(tittle,price,imgurl,type) values('+'"'+tittle+'"'+','+price+','+'"'+imgurl+'"'+','+'"'+type+'"'+')' , function(rows){
+>>>>>>> 07c0e13b297556d8243110f98b136525ab923c47
                 response.send(rows);
             })    
         }),
         app.get('/search', function(request, response){
             console.log(request.query.names)
+<<<<<<< HEAD
+            db.all('select * from goods where title like '+'"%'+request.query.names+'%"', function(rows){
+=======
             db.all('select * from goods where tittle like '+'"%'+request.query.names+'%"', function(rows){
+>>>>>>> 07c0e13b297556d8243110f98b136525ab923c47
                 response.send(rows);
             })    
         })
         ,
         app.get('/xiugai', function(request, response){
-            // console.log(request.query.type)
-            db.all('UPDATE goods SET title=' + '"' + request.query.title + '"' + ', price=' + request.query.price + ', imgurl=' + '"' + +request.query.imgurl + '"' + ', type=' + '"' + request.query.type + '"' + ' WHERE id=' + request.query.id, function(rows){
-                
+            console.log(request.query.imgurl)
+            db.all('UPDATE goods SET title=' + '"' + request.query.title + '"' + ', price=' + request.query.price + ', imgurl=' + '"' +request.query.imgurl + '"' + ', type=' + '"' + request.query.type + '"' + ' WHERE id=' + request.query.id, function(rows){
                 // console.log(request)
                 response.send(rows);
             })    
