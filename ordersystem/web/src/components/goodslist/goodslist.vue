@@ -37,6 +37,8 @@
 </template>
 
 <script type="text/javascript">
+	import http from '../../utils/httpClient.js'
+	import loading from '../loading/loading.vue'
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
 	import Vue from 'vue'
@@ -82,7 +84,6 @@
 					self.$children[1].dataset = data;
 					self.names = '';
 				});
-
 			}
 		}
   		
