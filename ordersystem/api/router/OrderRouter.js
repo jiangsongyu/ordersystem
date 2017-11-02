@@ -13,7 +13,7 @@ module.exports = {
             })    
         }),
         app.get('/getAllOrder', function(request, response){
-            db.all('select * from orders', function(rows){
+            db.all('select * from goods', function(rows){
                 response.send(rows);
             })    
         }),
@@ -55,6 +55,7 @@ module.exports = {
                 response.send(rows);
             })    
         })
+        
 
     }
 }

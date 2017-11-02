@@ -3,6 +3,7 @@ var productRouter = require('./ProductRouter.js');
 var orderRouter = require('./OrderRouter.js');
 var userRouter = require('./UserRouter.js');
 
+
 module.exports = {
     Register: function(express){
         var app = express();
@@ -28,6 +29,5 @@ module.exports = {
         productRouter.Register(app);
         orderRouter.Register(app);
         userRouter.Register(app);
-
     }
 }
