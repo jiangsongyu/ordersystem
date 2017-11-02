@@ -21,6 +21,7 @@
 	
 	import nav from './nav/nav.vue'
 	import header from './header/header.vue'
+	import router from '../../router/';
 	export default {
 		components: {
 			'lyy-nav':nav,
@@ -41,9 +42,13 @@
 				}
 			}
 		},
-		methods: {
-			generateToolBar: function(obj){
-				//动态生成按钮
+		mounted: function(){
+			var cookie = document.cookie;
+			var cookie1 = cookie.split('=');
+			// console.log(cookie1[0] = token);
+			if(cookie1[0] != 'token'){
+				alert('请先登录！')
+				router.push({name: 'login'});
 			}
 		}
 	}

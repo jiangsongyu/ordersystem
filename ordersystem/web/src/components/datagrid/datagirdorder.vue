@@ -78,24 +78,25 @@
 				var id = parent.eq(0).text();
 				var self = this;
 				var e = $(event.target);
-				$.get('http://localhost:88/xiugaiorder', {'id':id, 'status': '已上菜'}, function(data) {
+				$.get('http://localhost:88/xiugaiorder', {'id':id, 'status': '已买单'}, function(data) {
 					// console.log(data)
 					$.get('http://localhost:88/getAllOrder', function(data) {
 						self.dataset = data;
-						e.hide();
-						e.next('button').show();
+						// $.get('http://localhost:88/addToHis', {'id':id}, function(data){
+
+						// }
 					});
 				});
 					
 			}
 			
 		},	
-		props: ['api', 'cols','apii','apiii'],
+		props: ['api', 'cols'],
 		mounted: function(){
 			var self = this;
 			http.get({
 				url: self.api
-			}).then(res => {console.log(res);
+			}).then(res => {
 				self.dataset = res.data
 			})
 		},

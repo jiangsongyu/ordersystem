@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<div class="form-group">
-		    <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names" @keyup.13="search('search')">
-		    <button type="button" class="btn btn-info" @click.self="search('search')" >搜索</button>
+		    <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names" @keyup.13="search('searchOrder')">
+		    <button type="button" class="btn btn-info" @click.self="search('searchOrder')" >搜索</button>
 		 </div>
-		<datagrid api="getAllOrder" apii="shanchu" apiii="xiugai" cols="id,title,price,imgurl,status"></datagrid>
-		<fenye api="getAll" apii="fenye"></fenye>
+		<datagrid api="getOrder" cols="id,title,price,imgurl,status"></datagrid>
+		<fenye api="getAllOrder" apii="fenyeOrder"></fenye>
 	</div>
 </template>
 
