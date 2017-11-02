@@ -1,0 +1,61 @@
+.cqy-order{
+    font-size:12px;
+    padding:5px;
+    li{
+        background-color:#efefef;
+        border-radius:5px;
+        margin-top:5px;
+        padding:5px 10px;;
+        p{
+            border-bottom:1px solid #ccc;
+            line-height:30px;
+            font-weight:bold;
+            display:flex;
+            justify-content:space-between;
+            span{
+                color:#58bc58;
+            }
+        }
+        table{
+            display:flex;
+            flex-direction:column;
+            padding:5px;
+            tr{
+                display:flex;
+                justify-content:space-between;
+                td,th{text-align:center;}
+                .cqy-order-colname{
+                    text-align:left;
+                }
+            }
+            .cqy-order-colnum{
+                width:10%;
+            }
+            .cqy-order-colname{
+                width:50%;
+            }
+            .cqy-order-colqty{
+                width:10%;
+            }
+            .cqy-order-colprice{
+                width:10%;
+            }
+        }
+        >span{
+            color:#f00;
+            display:flex;
+            justify-content:flex-end;
+            padding:5px 5px 0 0;
+            border-top:1px solid #ccc;
+        }
+    }
+}
+.noOrder{
+    p{
+        font-size:12px;
+        line-height:20px;
+        margin:5px;
+        display:block;
+        text-align:left;
+    }
+}

@@ -1,0 +1,38 @@
+.menulist{
+    height:100%;
+    ul{
+        display:flex;
+        flex-wrap:wrap;
+        height:100%;
+        li{
+            font-size:12px;
+            width:49%;
+            margin-right:2%;
+            border:1px solid #ccc;
+            border-top:0 none;
+            padding:0 5px;
+            display:flex;
+            flex-direction:column;
+            p{
+                width:100%;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            }
+            span{
+                display:flex;
+                justify-content: space-between;
+                line-height:22px;
+                margin:10px 0;
+                input{
+                    border:0 none;
+                }
+            }
+        }
+        li:nth-child(2n){
+            margin-right:0px;
+        }
+    }
+        
+
+}

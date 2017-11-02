@@ -4,6 +4,8 @@ var urlencode = bodyparser.urlencoded({extended: false});
 
 var apiResult = require('../ApiResult.js');
 
+var querystring = require('querystring');
+
 module.exports = {
     Register: function(app){
 
@@ -46,7 +48,7 @@ module.exports = {
         }),
         
         app.get('/xiugai', function(request, response){
-            console.log(request.query.imgurl)
+            // console.log(request.query.imgurl);
             db.all('UPDATE goods SET title=' + '"' + request.query.title + '"' + ', price=' + request.query.price + ', imgurl=' + '"' +request.query.imgurl + '"' + ', type=' + '"' + request.query.type + '"' + ' WHERE id=' + request.query.id, function(rows){
                 // console.log(request)
                 response.send(rows);
