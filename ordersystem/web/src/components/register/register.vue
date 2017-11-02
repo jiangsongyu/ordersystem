@@ -2,7 +2,7 @@
 	<div>
 		<div class="login-box">
 			<div class="col-sm-12 b-r">
-				<h3 class="m-t-none m-b">登录</h3>
+				<h3 class="m-t-none m-b">注册</h3>
 				<form role="form-horizontal">
 				    <div class="form-group">
 				        <input type="text" v-model="username" name="username" placeholder="请输入用户名" class="form-control required">
@@ -11,7 +11,7 @@
 				        <input type="password" v-model="password" name="password" placeholder="请输入密码" class="form-control required">
 				    </div>
 				    <div class="form-group">
-				    	<input type="button" class="btn btn-primary pull-right m-t-n-xs" value="登录" @click="loginHandler">
+				    	<input type="button" class="btn btn-primary pull-right m-t-n-xs" value="注册" @click="registerHandler">
 				    </div>
 				</form>
 			</div>
@@ -23,7 +23,7 @@
 <script type="text/javascript">
 	import loading from '../loading/loading.vue'
 	import http from '../../utils/httpClient.js'
-	import router from '../../router/';
+	import router from '../../router/'
 	import $ from 'jquery'
 
 	export default {
@@ -35,16 +35,14 @@
 			}
 		},
 		methods: {
-			loginHandler: function(){
-				$.post('http://localhost:88/login', {username: this.username, password: this.password}, function(res){	
+			registerHandler: function(){
+				$.post('http://localhost:88/register', {username: this.username, password: this.password}, function(res){	
 					console.log(res)
-					if(res.rows.length > 0){
-						var date = new Date();  
-						date.setDate(date.getDate() +7);
-						document.cookie = "token="+res.token+";expires=" +date.toUTCString()+"path=/";
-						router.push({name: 'home'});
+					if(res.status === false){
+						alert('该用户已被注册！')
 
-					}else{
+					}else if(res.status === true){
+						alert('注册成功，请登录！')
 						router.push({name: 'login'});
 					}
 				})

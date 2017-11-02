@@ -4,6 +4,7 @@
 		    <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names" @keyup.13="search('search')">
 		    <button type="button" class="btn btn-info" @click.self="search('search')" >搜索</button>
 		 </div>
+
 		<div class="form-group">
 		    <button type="button" class="btn btn-success" @click="dialogFormVisible = true">添加菜品</button>
 		    <el-dialog title="添加菜品" :visible.sync="dialogFormVisible">
@@ -19,6 +20,7 @@
 		        </el-form-item>
 		        <el-form-item label="菜品图片" :label-width="formLabelWidth">
 		          <el-input v-model="form.imgurl" auto-complete="off"></el-input>
+		    		<img src="../../img/tu1.jpg" height="100" width="100" alt="" />
 		        </el-form-item>
 		      </el-form>
 		      <div slot="footer" class="dialog-footer">
@@ -27,12 +29,16 @@
 		      </div>
 		    </el-dialog>
 		 </div>
-		<datagrid api="getgoods" apii="shanchu" apiii="xiugai" cols="id,title,price,imgurl,type"></datagrid>
+
+		<datagrid api="getgoods" apii="shanchu" apiii="xiugai" cols="id,title,price,imgurl,type,des"></datagrid>
 		<fenye api="getAll" apii="fenye"></fenye>
+
 	</div>
 </template>
 
 <script type="text/javascript">
+	import http from '../../utils/httpClient.js'
+	import loading from '../loading/loading.vue'
 	import datagrid from '../datagrid/datagird.vue'
 	import fenye from '../fenye/fenye.vue'
 	import Vue from 'vue'
@@ -40,12 +46,11 @@
 	export default {
 		components: {
 			datagrid,
-			fenye,
+			fenye
 			
 		},
 		data() {
 		    return {
-		       	dialogTableVisible: false,
 		        dialogFormVisible: false,
 		        form: {
 		          title: '',
@@ -66,9 +71,9 @@
 					self.form.imgurl='';
 					self.form.type='';
 					alert('添加成功！');
-					$.get('http://localhost:88/getgoods', function(data) {
-						console.log(data)
-					});
+					// $.get('http://localhost:88/getgoods', function(data) {
+					// 	console.log(data)
+					// });
 				})
 			},
 			search:function(sh){
@@ -79,7 +84,6 @@
 					self.$children[1].dataset = data;
 					self.names = '';
 				});
-
 			}
 		}
   		

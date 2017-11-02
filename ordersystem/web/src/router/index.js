@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import LoginComponent from '../components/login/login.vue'
+import RegisterComponent from '../components/register/register.vue'
 import HomeComponent from '../components/home/home.vue'
 import GoodsListComponent from '../components/goodslist/goodslist.vue'
-// import GoodsFormComponent from '../components/goodsform/goodsform.vue'
+import HistoryComponent from '../components/history/history.vue'
 import OrderComponent from '../components/order/order.vue'
 
 Vue.use(VueRouter)
@@ -20,11 +21,11 @@ var router = new VueRouter({
 				name: 'menu',
 				component: GoodsListComponent
 			}
-			// ,{
-			// 	path: 'goodsform',
-			// 	name: 'goodsform',
-			// 	component: GoodsFormComponent
-			// }
+			,{
+				path: 'history',
+				name: 'history',
+				component: HistoryComponent
+			}
 			,{
 				path: 'order',
 				name: 'order',
@@ -36,6 +37,11 @@ var router = new VueRouter({
 			path: '/login',
 			name: 'login',
 			component: LoginComponent
+		},
+		{
+			path: '/register',
+			name: 'register',
+			component: RegisterComponent
 		}
 	]
 })

@@ -6,7 +6,6 @@ var apiResult = require('../ApiResult.js');
 
 module.exports = {
     Register: function(app){
-
         app.get('/getgoods', function(request, response){
             db.all('select * from goodslist limit 10', function(rows){
                 response.send(rows);
@@ -40,7 +39,7 @@ module.exports = {
             })    
         }),
         app.get('/search', function(request, response){
-            db.all('select * from goodslist where title like '+'"%'+request.query.names+'%"', function(rows){
+            db.all('select * from goods where title like '+'"%'+request.query.names+'%" or type like '+'"%'+request.query.names+'%" or des like '+'"%'+request.query.names+'%" or price < '+'"'+request.query.names+'"', function(rows){
                 response.send(rows);
             })    
         }),
