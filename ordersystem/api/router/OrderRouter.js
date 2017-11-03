@@ -4,6 +4,8 @@ var urlencode = bodyparser.urlencoded({extended: false});
 
 var apiResult = require('../ApiResult.js');
 
+var querystring = require('querystring');
+
 module.exports = {
     Register: function(app){
 
@@ -43,8 +45,7 @@ module.exports = {
                 // console.log(request)
                 response.send(rows);
             })    
-        }),
-
+        }), 
         app.get('/addToHis', function(request, response){
             console.log(request.query)
             var price = (request.query.price)*1;
@@ -55,7 +56,5 @@ module.exports = {
                 response.send(rows);
             })    
         })
-        
-
     }
 }

@@ -53,6 +53,8 @@
 						e.hide();
 						e.next('button').show();
 						e.next('button').next('button').hide();
+						// self.$emit('skt');
+						self.skt();
 						console.log(self.skt);
 					});
 				});

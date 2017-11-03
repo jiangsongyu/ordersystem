@@ -1,12 +1,13 @@
 var socketServer = require('ws').Server;
 
 var wss = new socketServer({
-    port: 8080
+    port: 888
 });
 
 wss.on('connection', function (client) {
     client.on('message', function (_message) {
         wss.broadcast(_message);
+        console.log(_message);
     });
 
     // 退出聊天  
