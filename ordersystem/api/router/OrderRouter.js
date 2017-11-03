@@ -102,6 +102,17 @@ module.exports = {
             db.all('select * from ordermenu where orderid = '+'"' + orderid + '"', function(rows){
                 response.send(rows);
             })
+        }),
+        app.get('/deleteOrder', function(request, response){
+            db.all('delete from orders where id='+'"'+request.query.orderid+'"', function(rows){
+                response.send(rows);
+            })  
+        }),
+        app.get('/deleteMenu', function(request, response){
+            db.all('delete from orders where id='+'"'+request.query.orderid+'"', function(rows){
+                response.send(rows);
+            })    
         })
+
     }
 }
