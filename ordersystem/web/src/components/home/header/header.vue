@@ -6,7 +6,7 @@
 		<ul>
 			<li>
 				<!-- <router-link   @click.self="logout" to="login">退出</router-link> -->
-				<a @click.self="logout">退出</a>
+				<a class="charout" @click.self="logout">退出</a>
 			</li>
 			<li>
 				<router-link  to="register">注册</router-link>
@@ -37,3 +37,6 @@
 		}
 	}
 </script>
+<style type="text/css">
+	.charout{cursor: pointer;}
+</style>
