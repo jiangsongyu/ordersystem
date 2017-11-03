@@ -3,8 +3,8 @@
         <ul>
             <li v-for="(obj, key) in dataset" :data-guid="obj.id">
                 <img :src="obj.imgurl" alt="" />
-                <p >{{obj.other}}</p>
-                <span>￥{{obj.price}}<input type="button" value="Add to car"/></span>
+                <p >{{obj.title}}</p>
+                <span>￥{{obj.price}}<input type="button" class="btn btn-info btn-xs" value="加入购物车"/></span>
             </li>
         </ul>
         <loading v-show="loadingShow"></loading>
@@ -25,14 +25,20 @@
                 colsArray
             }
         },
-        props: ['api', 'cols'],
+        props: ['api', 'cols','params'],
         mounted: function(){
             var self = this;
-            http.get({
+            /*http.get({
                 url: this.api
+                // params:this.params
             }).then(res => {
                 self.dataset = res.data;
-                console.log(self.data);
+                // console.log(self.dataset);
+            })*/
+            $.get('http://localhost:88/getmenu', {
+                params:self.params
+            },function(res){
+                self.dataset = res;
             })
         },
         updated: function(){

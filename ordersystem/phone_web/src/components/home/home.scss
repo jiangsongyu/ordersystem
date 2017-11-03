@@ -3,16 +3,6 @@ main{
     display: flex;
     overflow-y:auto;
     flex-direction:column;
-    nav{
-        height:30px;
-        ul{
-            display:flex;
-            li{
-                line-height:30px;
-                padding:0 10px;
-            }
-        }
-    }
     .home-menu{
         display:flex;
         height:100%;
@@ -22,6 +12,7 @@ main{
                 height:30px;
                 line-height:30px;
                 text-align:center;
+                border-bottom:1px solid #ccc;
             }
         }
         article{

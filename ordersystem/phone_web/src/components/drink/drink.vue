@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<datagrid api="getmenu" params="主菜"></datagrid>
+		<datagrid api="getmenu" params="饮料"></datagrid>
 	</div>
 </template>
 
