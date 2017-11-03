@@ -1,13 +1,8 @@
 <template>
     <main  classs="bg-success">
         <ul class="cqy-order">
-<<<<<<< HEAD
             <li :data-guid="obj.id" v-for="(obj, index) in dataset">
-                <p>订单流水：{{obj.id}}<span>{{obj.status}}</span></p>
-=======
-            <li v-for="(obj, index) in dataset">
                 <p>订单流水：{{obj.id}}<span class="sta">{{obj.status}}</span></p>
->>>>>>> f61d2982c8e32a92c04c4c22c9e98d3a59238f8a
                 <table>
                     <thead>
                         <tr>
@@ -68,18 +63,13 @@
                         self.menudata.push(res1);
                     });
                 }                    
-<<<<<<< HEAD
             })     
-=======
-            })
             this.skt();
->>>>>>> f61d2982c8e32a92c04c4c22c9e98d3a59238f8a
         },
         beforeMount: function(){
             this.userid = localStorage.getItem('userid');
         },
         methods:{
-<<<<<<< HEAD
             deleteOrder:function(e){
                 var res = confirm('你确定要退掉这个订单吗');
                 if(res){
@@ -101,7 +91,7 @@
                         }
                     })
                 }                    
-=======
+            },
             skt:function(){
                 var socket = null;
                 socket = new WebSocket('ws://localhost:888');
@@ -127,7 +117,6 @@
                 socket.onerror = function(){
                     socket = null;
                 }
->>>>>>> f61d2982c8e32a92c04c4c22c9e98d3a59238f8a
             }
         }
     }
