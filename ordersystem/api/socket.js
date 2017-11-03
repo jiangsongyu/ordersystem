@@ -27,6 +27,6 @@ wss.on('connection', function (client) {
 //定义广播方法
 wss.broadcast = function broadcast(_messageObj) {  
     wss.clients.forEach(function(client) { 
-        client.send(JSON.stringify(_messageObj))
+        client.send(_messageObj)
     });  
 }; 

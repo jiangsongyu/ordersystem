@@ -1,15 +1,37 @@
 <template>
 	<div>
+		<el-button
+		    plain
+		    @click="open">
+		  </el-button>
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th v-for="(value, key) in dataset[0]" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{key}}</th>
+					<th>details</th>
 					<th>candel</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="(obj, index) in dataset">
-					<td v-for="(value, key) in obj" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{value}}</td>
+					<td v-for="(value, key) in obj" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) 	|| !colsArray[0]">{{value}}
+					</td>
+					<td>
+						<table class="table table-bordered">
+							<thead>
+							    <tr>
+							        <th >商品名字</th>
+							        <th >数量</th>
+							    </tr>
+							</thead>
+						    <tbody>
+						        <tr v-for="(object, idx) in menudata[index]">
+						            <td >{{object.name}}</td>
+						            <td >{{object.qty}}</td>
+						        </tr>
+						    </tbody>    
+						</table>
+					</td>
 					<td>
 						<button type="button" id="updabtn" class="btn btn-danger btn-xs upt" @click.self="cook($event)" v-show = "show">制作</button>
 						<button type="button" id="delbtn" class="btn btn-primary btn-xs" @click.self="finish($event)" v-show = "hide">上菜</button>
@@ -33,6 +55,7 @@
 			var colsArray = this.cols ? this.cols.split(',') : [];
 			return {
 				dataset: [],
+				menudata:[],
 				loadingShow: false,
 				colsArray,
 				show:true,
@@ -53,11 +76,11 @@
 						e.hide();
 						e.next('button').show();
 						e.next('button').next('button').hide();
-						// self.$emit('skt');
-						self.skt();
-						console.log(self.skt);
+						
 					});
 				});
+				self.skt(2);
+				
 			},
 
 			finish:function(event){
@@ -73,6 +96,7 @@
 						e.next('button').show();
 					});
 				});
+				self.skt(3);
 					
 			},
 
@@ -90,16 +114,34 @@
 						// }
 					});
 				});
+
 					
 			},
-			skt:function(){
+
+			skt:function(text){
+				var self = this;
 				var socket = null;
 				socket = new WebSocket('ws://localhost:888');
 				socket.onopen = function(){
-					socket.send('已连接');
+					socket.send(text);
 				}
 				socket.onmessage = function(msg){
-					console.log(msg);
+					console.log(msg)
+					if(msg.data == 1){	
+						self.open();
+						http.get({
+							url: self.api
+						}).then(res => {
+							self.dataset = res.data;
+							for(var i=0; i<res.data.length;i++){
+							    $.get('http://localhost:88/selectMenu', {
+							        orderid:res.data[i].id
+							    },  function(res1){
+							        self.menudata.push(res1);
+							    });
+							}        
+						})
+					}
 				}
 				
 				socket.onclose = function(){
@@ -108,7 +150,16 @@
 				socket.onerror = function(){
 					socket = null;
 				}
-			}
+			},
+			open() {
+		        const h = this.$createElement;
+
+		        this.$notify({
+		          title: '订单',
+		          message: h('i', { style: 'color: teal'}, '你有新的订单，请及时处理')
+		        });
+		      },
+
 			
 		},	
 		props: ['api', 'cols'],
@@ -117,8 +168,16 @@
 			http.get({
 				url: self.api
 			}).then(res => {
-				self.dataset = res.data
+				self.dataset = res.data;
+				for(var i=0; i<res.data.length;i++){
+				    $.get('http://localhost:88/selectMenu', {
+				        orderid:res.data[i].id
+				    },  function(res1){
+				        self.menudata.push(res1);
+				    });
+				}        
 			})
+			self.skt('后台已连接');
 		},
 		components: {
 			loading

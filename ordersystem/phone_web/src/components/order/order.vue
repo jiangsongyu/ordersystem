@@ -2,7 +2,7 @@
     <main  classs="bg-success">
         <ul class="cqy-order">
             <li v-for="(obj, index) in dataset">
-                <p>订单流水：{{obj.id}}<span>{{obj.status}}</span></p>
+                <p>订单流水：{{obj.id}}<span class="sta">{{obj.status}}</span></p>
                 <table>
                     <thead>
                         <tr>
@@ -32,6 +32,7 @@
 
 <script type="text/javascript">
     //$children
+    // import $ from 'jquery'
     import './order.scss'
     export default {
         data: function(){
@@ -63,9 +64,38 @@
                     });
                 }                    
             })
+            this.skt();
         },
         beforeMount: function(){
             this.userid = localStorage.getItem('userid');
+        },
+        methods:{
+            skt:function(){
+                var socket = null;
+                socket = new WebSocket('ws://localhost:888');
+                socket.onopen = function(){
+                    socket.send('订单页面已连接');
+                }
+                socket.onmessage = function(msg){
+                    console.log(msg)
+                    if(msg.data == 2){
+                       $('.sta').text('正在制作');              
+                    };
+                    if(msg.data == 3){
+                       $('.sta').text('已上菜');
+                       $('.cbtn').show();              
+                    }
+
+
+                }
+                
+                socket.onclose = function(){
+                    socket = null;
+                }
+                socket.onerror = function(){
+                    socket = null;
+                }
+            }
         }
     }
 </script>

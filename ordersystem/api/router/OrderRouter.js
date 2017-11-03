@@ -19,8 +19,18 @@ module.exports = {
                 response.send(rows);
             })    
         }),
+        app.get('/getAllHis', function(request, response){
+            db.all('select * from history', function(rows){
+                response.send(rows);
+            })    
+        }),
         app.get('/fenyeOrder', function(request, response){
             db.all('select * from orders limit '+request.query.qty*(request.query.pageNo-1)+','+request.query.qty, function(rows){
+                response.send(rows);
+            })    
+        }),
+        app.get('/fenyeHis', function(request, response){
+            db.all('select * from history limit '+request.query.qty*(request.query.pageNo-1)+','+request.query.qty, function(rows){
                 // console.log(request)s
                 response.send(rows);
             })    
@@ -46,6 +56,13 @@ module.exports = {
                 response.send(rows);
             })    
         }), 
+        app.get('/phoneUpdateOrder', function(request, response){
+            console.log(request.query.imgurl)
+            db.all('UPDATE orders SET status=' + '"' + request.query.status + '"'  + ' WHERE userid=' + request.query.userid, function(rows){
+                // console.log(request)
+                response.send(rows);
+            })    
+        }),
         app.get('/addToHis', function(request, response){
             console.log(request.query)
             var price = (request.query.price)*1;
