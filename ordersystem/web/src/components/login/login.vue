@@ -47,7 +47,7 @@
 					}else{
 						alert('用户名或密码不正确！');
 						router.push({name: 'login'});
-					}
+					} 
 				})
 			}
 		},

@@ -4,7 +4,7 @@
 		    <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names" @keyup.13="search('searchOrder')">
 		    <button type="button" class="btn btn-info" @click.self="search('searchOrder')" >搜索</button>
 		 </div>
-		<datagrid api="getOrder" cols="id,title,price,imgurl,status"></datagrid>
+		<datagrid api="getOrder" cols=""></datagrid>
 		<fenye api="getAllOrder" apii="fenyeOrder"></fenye>
 	</div>
 </template>

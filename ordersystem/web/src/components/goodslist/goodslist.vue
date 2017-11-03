@@ -20,7 +20,7 @@
 		        </el-form-item>
 		        <el-form-item label="菜品图片" :label-width="formLabelWidth">
 		          <el-input v-model="form.imgurl" auto-complete="off"></el-input>
-		    		<img src="../../img/tu1.jpg" height="100" width="100" alt="" />
+		    			
 		        </el-form-item>
 		      </el-form>
 		      <div slot="footer" class="dialog-footer">

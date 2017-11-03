@@ -6,7 +6,7 @@ import store from './vuex/store'
 import ElementUI from 'element-ui'
 import './assets/theme-chalk/index.css'
 import './assets/index.js'
-import VueSocketio from 'vue-socket.io';
+// import VueSocketio from 'vue-socket.io';
 // Vue.use(VueSocketio, 'http://localhost:888');  
 Vue.use(ElementUI)
 

@@ -1,8 +1,13 @@
 <template>
     <main  classs="bg-success">
         <ul class="cqy-order">
+<<<<<<< HEAD
             <li :data-guid="obj.id" v-for="(obj, index) in dataset">
                 <p>订单流水：{{obj.id}}<span>{{obj.status}}</span></p>
+=======
+            <li v-for="(obj, index) in dataset">
+                <p>订单流水：{{obj.id}}<span class="sta">{{obj.status}}</span></p>
+>>>>>>> f61d2982c8e32a92c04c4c22c9e98d3a59238f8a
                 <table>
                     <thead>
                         <tr>
@@ -35,6 +40,7 @@
 
 <script type="text/javascript">
     //$children
+    // import $ from 'jquery'
     import './order.scss'
     export default {
         data: function(){
@@ -62,12 +68,18 @@
                         self.menudata.push(res1);
                     });
                 }                    
+<<<<<<< HEAD
             })     
+=======
+            })
+            this.skt();
+>>>>>>> f61d2982c8e32a92c04c4c22c9e98d3a59238f8a
         },
         beforeMount: function(){
             this.userid = localStorage.getItem('userid');
         },
         methods:{
+<<<<<<< HEAD
             deleteOrder:function(e){
                 var res = confirm('你确定要退掉这个订单吗');
                 if(res){
@@ -89,6 +101,33 @@
                         }
                     })
                 }                    
+=======
+            skt:function(){
+                var socket = null;
+                socket = new WebSocket('ws://localhost:888');
+                socket.onopen = function(){
+                    socket.send('订单页面已连接');
+                }
+                socket.onmessage = function(msg){
+                    console.log(msg)
+                    if(msg.data == 2){
+                       $('.sta').text('正在制作');              
+                    };
+                    if(msg.data == 3){
+                       $('.sta').text('已上菜');
+                       $('.cbtn').show();              
+                    }
+
+
+                }
+                
+                socket.onclose = function(){
+                    socket = null;
+                }
+                socket.onerror = function(){
+                    socket = null;
+                }
+>>>>>>> f61d2982c8e32a92c04c4c22c9e98d3a59238f8a
             }
         }
     }

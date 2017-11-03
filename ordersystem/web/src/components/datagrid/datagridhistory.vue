@@ -4,17 +4,11 @@
             <thead>
                 <tr>
                     <th v-for="(value, key) in dataset[0]" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{key}}</th>
-                    <th>candel</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(obj, index) in dataset">
                     <td v-for="(value, key) in obj" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{value}}</td>
-                    <td>
-                        <button type="button" id="updabtn" class="btn btn-danger btn-xs upt" @click.self="cook($event)" v-show = "show">制作</button>
-                        <button type="button" id="delbtn" class="btn btn-primary btn-xs" @click.self="finish($event)" v-show = "hide">上菜</button>
-                        <button type="button" class="btn btn-xs btn-success" @click.self="gohistory"  v-show = "hide" >完成</button>
-                    </td>
                 </tr>
             </tbody>
         </table>
