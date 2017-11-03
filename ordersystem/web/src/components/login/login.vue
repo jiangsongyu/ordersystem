@@ -37,14 +37,15 @@
 		methods: {
 			loginHandler: function(){
 				$.post('http://localhost:88/login', {username: this.username, password: this.password}, function(res){	
-					console.log(res)
+					console.log(res);
 					if(res.rows.length > 0){
 						var date = new Date();  
-						date.setDate(date.getDate() +7);
+						date.setDate(date.getDate() +7);console.log(666)
 						document.cookie = "token="+res.token+";expires=" +date.toUTCString()+"path=/";
 						router.push({name: 'home'});
 
 					}else{
+						alert('用户名或密码不正确！');
 						router.push({name: 'login'});
 					}
 				})
