@@ -36,7 +36,6 @@
             cqylogout:function(e){
                 localStorage.removeItem("userid");
                 $('.resMessage').html('已退出').css('color','#58bc58');
-                router.push({name: 'home'})
             }
         }
     }
