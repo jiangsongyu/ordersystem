@@ -53,6 +53,7 @@
 						e.hide();
 						e.next('button').show();
 						e.next('button').next('button').hide();
+						console.log(self.skt);
 					});
 				});
 			},
@@ -88,6 +89,23 @@
 					});
 				});
 					
+			},
+			skt:function(){
+				var socket = null;
+				socket = new WebSocket('ws://localhost:888');
+				socket.onopen = function(){
+					socket.send('已连接');
+				}
+				socket.onmessage = function(msg){
+					console.log(msg);
+				}
+				
+				socket.onclose = function(){
+					socket = null;
+				}
+				socket.onerror = function(){
+					socket = null;
+				}
 			}
 			
 		},	

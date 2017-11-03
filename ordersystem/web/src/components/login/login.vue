@@ -46,7 +46,7 @@
 
 					}else{
 						router.push({name: 'login'});
-					}
+					} 
 				})
 			}
 		},
