@@ -58,7 +58,6 @@
 <script type="text/javascript">
 	import http from '../../utils/httpClient.js'
 	import loading from '../loading/loading.vue'
-	import tanchuang from '../tangchuang/tanchuang.vue'
 	import $ from 'jquery'
 	// import jQuery from 'jquery'
 	// import '../../assets/bootstrap/js/bootstrap.min.js'
@@ -165,8 +164,7 @@
 
 		},
 		components: {
-			loading,
-			tanchuang
+			loading
 		}
 	}
 </script>

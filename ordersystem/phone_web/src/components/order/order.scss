@@ -6,7 +6,7 @@
         border-radius:5px;
         margin-top:5px;
         padding:5px 10px;;
-        p{
+        p:first-child{
             border-bottom:1px solid #ccc;
             line-height:30px;
             font-weight:bold;
@@ -41,12 +41,17 @@
                 width:10%;
             }
         }
-        >span{
-            color:#f00;
+        p:last-child{
             display:flex;
-            justify-content:flex-end;
+            justify-content:space-between;
             padding:5px 5px 0 0;
             border-top:1px solid #ccc;
+            span{
+                color:#f00;
+                button:last-child{
+                    margin-left:5px;
+                }
+            }
         }
     }
 }

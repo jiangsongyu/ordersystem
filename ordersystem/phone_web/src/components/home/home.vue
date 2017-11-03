@@ -1,21 +1,13 @@
 <template>
 	<main  classs="bg-success">
-		<nav class="bg-info">
-		    <ul>
-		        <li>分类</li>
-		        <li class="greensName">主食</li>
-		    </ul>
-		</nav>
 		<div class="home-menu">
 			<aside>
 				<ul>
-					<li><router-link to="/goodslist">主食</router-link></li>
-					<li><router-link to="/goodsform">套餐</router-link></li>
-					<li><router-link to="/goodslist">小食</router-link></li>
-					<li><router-link to="/goodslist">早餐</router-link></li>
-					<li><router-link to="/goodslist">饮料</router-link></li>
-					<li><router-link to="/goodslist">汤粥</router-link></li>
-					<li><router-link to="/goodslist">其他</router-link></li>
+					<li><router-link to="/login"><span><i class="glyphicon glyphicon-heart-empty"></i>登录</span></router-link></li>
+					<li><router-link to="/goodslist"><span><i class="glyphicon glyphicon-hand-right"></i>主菜</span></router-link></li>
+					<li><router-link to="/goodsform"><span><i class="glyphicon glyphicon-hand-right"></i>小吃</span></router-link></li>
+					<li><router-link to="/sweetsgoods"><span><i class="glyphicon glyphicon-hand-right"></i>甜品</span></router-link></li>
+					<li><router-link to="/drink"><span><i class="glyphicon glyphicon-hand-right"></i>饮料</span></router-link></li>
 				</ul>		
 			</aside>
 			<article>
@@ -30,12 +22,7 @@
 	import './home.scss'
 	export default {
 		methods: {
-			generateToolBar: function(obj){
-				//动态生成按钮
-			},
-			addCar: function(){
-				
-			}
+			
 		}
 	}
 </script>

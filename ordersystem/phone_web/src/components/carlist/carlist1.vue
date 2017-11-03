@@ -40,7 +40,8 @@
                     </td>
                 </tr>
             </tfoot>
-        </table>     
+        </table>
+        <div class="isLogin"></div>
     </main>
 </template>
 
@@ -62,19 +63,22 @@
             // 添加订单
             addOrder: function(e){
                 this.userID = localStorage.getItem('userid');
-                $('#linkOrder').addClass('active').siblings().removeClass('active');
-                // 生成订单
+                // 生成订单:用户名不为空才能下单
                 var self = this;
-                var userid = 1;
-                $.get('http://localhost:88/addOrder',{
-                    status:"未付款",
-                    data:self.dataset,
-                    total:$('.total').text(),
-                    userid:self.userID
-                },function(res){
-                    router.push({name: 'order'})
-                })
-                
+                if(this.userID != null){
+                    $.get('http://localhost:88/addOrder',{
+                        status:"未付款",
+                        data:self.dataset,
+                        total:$('.total').text(),
+                        userid:self.userID
+                    },function(res){
+                        router.push({name: 'order'});
+                        $('#linkOrder').addClass('active').siblings().removeClass('active');
+                        self.skt();
+                    })
+                }else{
+                    $('.isLogin').html('您还没有登录，请先登录再下单');
+                }
             },
             // 改变商品数量
             changeValue: function(qty, ele){
@@ -153,23 +157,40 @@
                 var date=new Date();
                 date.setDate(date.getDate()+7);
                 document.cookie= 'carlist='+JSON.stringify(carlist)+';expires='+date.toUTCString();
+            },
+            skt:function(){
+                var socket = null;
+                socket = new WebSocket('ws://localhost:888');
+                socket.onopen = function(){
+                    socket.send(1);
+                }   
+                socket.onmessage = function(msg){
+                    console.log(msg);
+                }
+                
+                socket.onclose = function(){
+                    socket = null;
+                }
+                socket.onerror = function(){
+                    socket = null;
+                }
             }
         },
         mounted: function(){
             var carlist=[];
             var cookies=document.cookie;
-            // console.log(cookies);
             if(cookies.length>0){
-                data();
+                cookies = cookies.split('; ');
+                cookies.forEach(function(cookie){
+                    var temp = cookie.split('=');
+                    if(temp[0] === 'carlist'){
+                        carlist = JSON.parse(temp[1]);
+                    };
+                })
+                
             };
-            function data(){
-                cookies=cookies.split('=');
-                if(cookies[0] === 'carlist'){
-                    carlist = JSON.parse(cookies[1]);
-                };
-            }
             this.dataset = carlist;
-            this.totalPrice();
+            this.totalPrice();console.log(this.dataset);
         }
     }
 </script>
