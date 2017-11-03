@@ -11,7 +11,7 @@
     <footer class="bg-primary">
         <ul>
             <li @click="activeStyle($event)">
-                <router-link to="/goodslist">
+                <router-link to="/">
                     <span><i class="glyphicon glyphicon-home"></i></span>首页
                 </router-link>
             </li>

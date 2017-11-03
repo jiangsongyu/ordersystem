@@ -40,7 +40,8 @@
                     </td>
                 </tr>
             </tfoot>
-        </table>     
+        </table>
+        <div class="isLogin"></div>
     </main>
 </template>
 
@@ -62,19 +63,21 @@
             // 添加订单
             addOrder: function(e){
                 this.userID = localStorage.getItem('userid');
-                $('#linkOrder').addClass('active').siblings().removeClass('active');
-                // 生成订单
+                // 生成订单:用户名不为空才能下单
                 var self = this;
-                var userid = 1;
-                $.get('http://localhost:88/addOrder',{
-                    status:"未付款",
-                    data:self.dataset,
-                    total:$('.total').text(),
-                    userid:self.userID
-                },function(res){
-                    router.push({name: 'order'})
-                })
-                
+                if(this.userID != null){
+                    $.get('http://localhost:88/addOrder',{
+                        status:"未付款",
+                        data:self.dataset,
+                        total:$('.total').text(),
+                        userid:self.userID
+                    },function(res){
+                        router.push({name: 'order'});
+                        $('#linkOrder').addClass('active').siblings().removeClass('active');
+                    })
+                }else{
+                    $('.isLogin').html('您还没有登录，请先登录再下单');
+                }
             },
             // 改变商品数量
             changeValue: function(qty, ele){
