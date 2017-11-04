@@ -23,7 +23,7 @@
                 </table>
                 <p>
                     <span>总价格：{{obj.totalPrice}}元</span>
-                    <span><button type="button" class="btn btn-info btn-xs"@click="deleteOrder($event)">退单</button><button type="button" class="accountMoney btn btn-info btn-xs" @click.once="account($event)">结账</button></span>
+                    <span><button type="button" class="btn btn-info btn-xs changeback"@click="deleteOrder($event)">退单</button><button type="button" class="accountMoney btn btn-info btn-xs" @click.once="account($event)">结账</button></span>
                 </p>
             </li>
         </ul>
@@ -58,6 +58,9 @@
             $.each(this.dataset, function(idx,item){
                 if(item.status != '已上菜'){
                     $('.accountMoney').eq(idx).css('display', 'none');
+                }
+                if(item.status != '未付款'){
+                    $('.changeback').eq(idx).css('display', 'none');
                 }
             });
         },
@@ -138,50 +141,13 @@
         sockets:{
             cook: function(){
                 console.log(666)
-               var self = this;
-              // 发请求
-              $.get('http://localhost:88/selectOrder',{
-                  userid:self.userid
-              }, function(res){
-                  self.dataset = res;
-                  // console.log(self.dataset);
-                  for(var i=0; i<res.length;i++){
-                      // 订单id搜索对应内容
-                      // console.log(res[i].id);
-                      if(self.dataset.length != 0){
-                          $('.noOrder').css('display', 'none');
-                      }
-                      $.get('http://localhost:88/selectMenu', {
-                          orderid:res[i].id
-                      },  function(res1){
-                          self.menudata.push(res1);
-                          // console.log(self.menudata);
-                      });
-                  }                    
-              })
+                var self = this;
+                this.sendRequest();
             },
             shangcai: function(){
                 var self = this;
-               // 发请求
-               $.get('http://localhost:88/selectOrder',{
-                   userid:self.userid
-               }, function(res){
-                   self.dataset = res;
-                   // console.log(self.dataset);
-                   for(var i=0; i<res.length;i++){
-                       // 订单id搜索对应内容
-                       // console.log(res[i].id);
-                       if(self.dataset.length != 0){
-                           $('.noOrder').css('display', 'none');
-                       }
-                       $.get('http://localhost:88/selectMenu', {
-                           orderid:res[i].id
-                       },  function(res1){
-                           self.menudata.push(res1);
-                           // console.log(self.menudata);
-                       });
-                   }                    
-                })          
+               // 发请求 
+                this.sendRequest();        
             }
         }
     }
