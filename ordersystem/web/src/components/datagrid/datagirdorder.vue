@@ -32,10 +32,10 @@
 						    </tbody>    
 						</table>
 					</td>
-					<td>
-						<button type="button" id="updabtn" class="btn btn-danger btn-xs upt" @click.self="cook($event)" v-show = "show">制作</button>
-						<button type="button" id="delbtn" class="btn btn-primary btn-xs" @click.self="finish($event)" v-show = "hide">上菜</button>
-						<button type="button" class="btn btn-xs btn-success" @click.self="gohistory"  v-show = "hide" >完成</button>
+					<td v-for="(value, key) in obj" v-if="(csArray[0] && csArray.indexOf(key) > -1) 	|| !csArray[0]">
+						<button type="button" id="updabtn" class="btn btn-success btn-xs upt" @click.self="cook($event)" v-show = "show">{{value}}</button>
+						<!-- <button type="button" id="delbtn" class="btn btn-primary btn-xs" @click.self="finish($event)" v-show = "hide">上菜</button>
+						<button type="button" class="btn btn-xs btn-success" @click.self="gohistory"  v-show = "hide" >完成</button> -->
 					</td>
 				</tr>
 			</tbody>
@@ -56,33 +56,42 @@
 	export default {
 		data: function(){
 			var colsArray = this.cols ? this.cols.split(',') : [];
+			var csArray = this.cs ? this.cs.split(',') : [];
 			return {
 				dataset: [],
 				menudata:[],
 				loadingShow: false,
 				colsArray,
+				csArray,
 				show:true,
 				hide:false
 			}
 		},
 		methods:{
-			
+			// texx:function(){
+			// 	console.log(self.dataset,$('tr'))
+			// 	// for(var i=0;i<)
+			// },
 			cook:function(e){
-				var parent = $(event.target).parent().parent().children();
-				var id = parent.eq(0).text();
-				var self = this;
-				var e = $(event.target);
-				$.get('http://localhost:88/xiugaiorder', {'id':id, 'status': '正在制作'}, function(data) {
-					// console.log(data)
-					$.get('http://localhost:88/getAllOrder', function(data) {
-						self.dataset = data;
-						e.hide();
-						e.next('button').show();
-						e.next('button').next('button').hide();
-						
+				console.log($(e.target).html())
+				var target = $(e.target).html();
+				if(target == '未付款'){
+					var parent = $(event.target).parent().parent().children();
+					var id = parent.eq(0).text();
+					var self = this;
+					var e = $(event.target);
+					$.get('http://localhost:88/xiugaiorder', {'id':id, 'status': '正在制作'}, function(data) {
+						// console.log(data)
+						$.get('http://localhost:88/getAllOrder', function(data) {
+							self.dataset = data;
+							
+							
+						});
 					});
-				});
-				this.$socket.emit('cooking');
+					this.$socket.emit('cooking');
+				} else if (target == '正在制作'){
+					this.finish(e)
+				} 
 				
 			},
 
@@ -95,8 +104,7 @@
 					// console.log(data)
 					$.get('http://localhost:88/getAllOrder', function(data) {
 						self.dataset = data;
-						e.hide();
-						e.next('button').show();
+						
 					});
 				});
 				this.$socket.emit('shangcai');
@@ -151,10 +159,30 @@
 			   	})
 			},
 			wanc: function(){
-			   console.log(666)
+			   var self = this;
+			   http.get({
+			   	url: self.api
+			   }).then(res => {
+			   	self.dataset = res.data;
+			   	for(var i=0; i<res.data.length;i++){
+			   	    $.get('http://localhost:88/selectMenu', {
+			   	        orderid:res.data[i].id
+			   	    },  function(res1){
+			   	        self.menudata.push(res1);
+			   	    });
+			   	} 
+			   	// console.log(self.dataset)
+			   	self.dataset.forEach(function(item,idx){
+			   		// console.log(item.status)
+			   		console.log(self.dataset,$('tr'))
+			   		// if(item.status == '未付款'){
+
+			   		// }
+			   	})      
+			   })
 			}
 		 },
-		props: ['api', 'cols'],
+		props: ['api', 'cols','cs'],
 		mounted: function(){
 			var self = this;
 			http.get({
@@ -167,13 +195,24 @@
 				    },  function(res1){
 				        self.menudata.push(res1);
 				    });
-				}        
+				} 
+				// console.log(self.dataset)
+				self.dataset.forEach(function(item,idx){
+					// console.log(item.status)
+					console.log(self.dataset,$('tr'))
+					// if(item.status == '未付款'){
+
+					// }
+				})      
 			})
-			
 			this.$socket.emit('connent');
+			
 		},
 		components: {
 			loading
 		}
 	}
 </script>
+<style>
+	
+</style>
