@@ -4,22 +4,15 @@
 			<thead>
 				<tr>
 					<th v-for="(value, key) in dataset[0]" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{key}}</th>
+					<th>图片</th>
 					<th>candel</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="(obj, index) in dataset">
 					<td v-for="(value, key) in obj" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{value}}</td>
+					<td><img :src="obj.img" height="100" width="100"/></td>
 					<td>
-						<button type="button" id="details" class="btn btn-info btn-xs upt" @click.self="xiangq($event)">详情</button>
-						<el-dialog title="修改菜品" :visible.sync="dialogVisible">
-						  <img :src="'form.imgurl'" height="100" width="100" alt="" />
-						  <h1>{{form.imgurl}}</h1>
-						</el-dialog>
-						<!-- <tanchuang api="getgoods"></tanchuang> -->
-						
-
-
 						<button type="button" id="updabtn" class="btn btn-success btn-xs upt" @click.self="up($event)">修改</button>
 						<el-dialog title="修改菜品" :visible.sync="dialogFormVisible">
 						  <el-form :model="form">
@@ -31,10 +24,6 @@
 						    </el-form-item>
 						    <el-form-item label="菜品价格" :label-width="formLabelWidth">
 						      <el-input v-model="form.price" auto-complete="off"></el-input>
-						    </el-form-item>
-						    <el-form-item label="菜品图片" :label-width="formLabelWidth">
-						      <el-input v-model="form.imgurl" auto-complete="off"></el-input>
-						      <!-- <img :src="{{form.imgurl}}" height="100" width="100" alt="" /> -->
 						    </el-form-item>
 						  </el-form>
 						  <div slot="footer" class="dialog-footer">
@@ -93,32 +82,19 @@
 					console.log(data)
 				});
 			},
-			xiangq:function(event){
-				this.dialogVisible = true;
-				console.log(666)
-				var self = this;
-				$.get('http://localhost:88/'+self.api, function(data) {
-						console.log(data[0].img)
-						self.form.imgurl = data[0].img;
-					});
-				// this.form.id = id;
-				// this.form.title = title;
-				// this.form.price = price;
-				// this.form.imgurl = imgurl;
-				// this.form.type = type;
-			},
+			
 			up:function(event){
 				this.dialogFormVisible = true;
 				var parent = $(event.target).parent().parent().children();
 				var id = parent.eq(0).text();
 				var title = parent.eq(1).text();
-				var price = parent.eq(2).text();
+				var price = parent.eq(3).text();
 				var imgurl = parent.eq(3).text();
 				var type = parent.eq(4).text();
 				this.form.id = id;
 				this.form.title = title;
 				this.form.price = price;
-				this.form.imgurl = imgurl;
+				// this.form.imgurl = imgurl;
 				this.form.type = type;
 					
 			}
@@ -145,18 +121,6 @@
 			}).then(res => {console.log(res);
 				self.dataset = res.data
 			});
-
-			// var socket = null;
-			// if (!socket) {
-			//     socket = io("ws://localhost:888");
-			// }
-			
-			// socket.on('printOpen', function(print){
-			    
-			//     console.log('print');
-			    
-
-			// })
 
 		},
 		components: {

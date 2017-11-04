@@ -36,6 +36,10 @@
             cqylogout:function(e){
                 localStorage.removeItem("userid");
                 $('.resMessage').html('已退出').css('color','#58bc58');
+                var carlist=[];
+                var date=new Date();
+                date.setDate(date.getDate()+7);
+                document.cookie= 'carlist='+JSON.stringify(carlist)+';expires='+date.toUTCString();
             }
         }
     }

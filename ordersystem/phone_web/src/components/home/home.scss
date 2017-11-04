@@ -8,11 +8,21 @@ main{
         height:100%;
         aside{
             width:15%;
+            padding-top:10px;
             li{
-                height:30px;
+                height:60px;
                 line-height:30px;
                 text-align:center;
-                border-bottom:1px solid #ccc;
+                a{text-decoration:none;}
+                a.active{
+                    background-color:#000;
+                }
+                span{
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                }
             }
         }
         article{

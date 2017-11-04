@@ -19,7 +19,11 @@ io.on("connection", function(client){
 
     client.on('shangcai', function(msg){
         io.emit("shangcai");
-        // io.to(client.id).emit('cc', 77);
+    })
+
+    client.on('wan', function(msg){
+        console.log(msg)
+        io.emit("wanc");
     })
 
     

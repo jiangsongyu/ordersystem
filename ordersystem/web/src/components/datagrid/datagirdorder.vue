@@ -2,8 +2,8 @@
 	<div>
 		<el-button
 		    plain
-		    @click="open">
-		  </el-button>
+		    @click="open" v-show='false'>
+		</el-button>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -104,21 +104,19 @@
 			},
 
 			gohistory:function(event){
-				var parent = $(event.target).parent().parent().children();
-				var id = parent.eq(0).text();
-				var self = this;
-				var e = $(event.target);
-				$.get('http://localhost:88/xiugaiorder', {'id':id, 'status': '已买单'}, function(data) {
-					// console.log(data)
-					$.get('http://localhost:88/getAllOrder', function(data) {
-						self.dataset = data;
-						// $.get('http://localhost:88/addToHis', {'id':id}, function(data){
+				// var parent = $(event.target).parent().parent().children();
+				// var id = parent.eq(0).text();
+				// var self = this;
+				// var e = $(event.target);
+				// $.get('http://localhost:88/xiugaiorder', {'id':id, 'status': '已买单'}, function(data) {
+				// 	// console.log(data)
+				// 	$.get('http://localhost:88/getAllOrder', function(data) {
+				// 		self.dataset = data;
+				// 		// $.get('http://localhost:88/addToHis', {'id':id}, function(data){
 
-						// }
-					});
-				});
-
-					
+				// 		// }
+				// 	});
+				// });		
 			},
 
 			open() {
@@ -151,6 +149,9 @@
 			   		    });
 			   		}        
 			   	})
+			},
+			wanc: function(){
+			   console.log(666)
 			}
 		 },
 		props: ['api', 'cols'],
@@ -168,13 +169,6 @@
 				    });
 				}        
 			})
-			// self.$nextTick(() => {
-			// 	var sktid = self.$socket.id;
-			// console.log(sktid);
-			// console.log(11,self.$socket)
-			// console.log(11,self.$socket.ids)
-			// console.log(11,self.$socket.id)
-			// })
 			
 			this.$socket.emit('connent');
 		},

@@ -119,6 +119,38 @@ module.exports = {
             db.all('select * from ordermenu where orderid = '+'"' + orderid + '"', function(rows){
                 response.send(rows);
             })
+        }),
+        app.get('/deleteOrder', function(request, response){
+            db.all('delete from orders where id='+'"'+request.query.orderid+'"', function(rows){
+                response.send(rows);
+            })  
+        }),
+        app.get('/deleteMenu', function(request, response){
+            db.all('delete from orders where id='+'"'+request.query.orderid+'"', function(rows){
+                response.send(rows);
+            })    
+        }),
+        app.get('/account', function(request, response){
+            db.all('UPDATE orders SET status=' + '"' + request.query.status + '"'  + ' WHERE id=' + request.query.orderid, function(rows){
+                response.send(rows);
+            })
+        }),
+        app.get('/selectONEOrder', function(request, response){
+            // response.send("请求成功");
+            var id = request.query.id;
+            db.all('select * from orders where id = '+ '"' + id + '"', function(rows){
+                response.send(rows);
+            })
+        }),
+        app.get('/addTo2His', function(request, response){
+            // console.log(request.query)
+            var orderid = request.query.orderid;
+            var totalPrice = (request.query.totalPrice)*1;
+            var userid = request.query.userid;
+            db.all('insert into history(orderid,totalPrice,userid) values('+orderid+','+totalPrice+','+'"'+userid+'"'+')' , function(rows){
+                response.send(rows);
+            })    
         })
+
     }
 }

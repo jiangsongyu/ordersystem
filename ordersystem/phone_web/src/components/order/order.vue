@@ -1,7 +1,7 @@
 <template>
     <main  classs="bg-success">
         <ul class="cqy-order">
-            <li v-for="(obj, index) in dataset">
+            <li :data-guid="obj.id" v-for="(obj, index) in dataset">
                 <p>订单流水：{{obj.id}}<span class="sta">{{obj.status}}</span></p>
                 <table>
                     <thead>
@@ -21,7 +21,10 @@
                         </tr>
                     </tbody>    
                 </table>
-                <span>总价格：{{obj.totalPrice}}元</span>
+                <p>
+                    <span>总价格：{{obj.totalPrice}}元</span>
+                    <span><button type="button" class="btn btn-info btn-xs"@click="deleteOrder($event)">退单</button><button type="button" class="btn btn-info btn-xs" @click.once="account($event)">结账</button></span>
+                </p>
             </li>
         </ul>
         <div class="noOrder">
@@ -31,9 +34,10 @@
 </template>
 
 <script type="text/javascript">
-    //$children
-    // import $ from 'jquery'
+    import Vue from 'vue'
+    import io from 'vue-socket.io'
     import './order.scss'
+    Vue.use(io,'http://localhost:888')
     export default {
         data: function(){
             return {
@@ -49,10 +53,8 @@
                 userid:self.userid
             }, function(res){
                 self.dataset = res;
-                // console.log(self.dataset);
                 for(var i=0; i<res.length;i++){
                     // 订单id搜索对应内容
-                    // console.log(res[i].id);
                     if(self.dataset.length != 0){
                         $('.noOrder').css('display', 'none');
                     }
@@ -60,19 +62,64 @@
                         orderid:res[i].id
                     },  function(res1){
                         self.menudata.push(res1);
-                        // console.log(self.menudata);
                     });
                 }                    
+
             })
         },
         beforeMount: function(){
             this.userid = localStorage.getItem('userid');
         },
         methods:{
-            
+            deleteOrder:function(e){
+                var res = confirm('你确定要退掉这个订单吗');
+                if(res){
+                    var status = $(e.target).parents('li').find('span').eq(0).text();
+                    if(status != '未付款'){
+                        alert('菜品已经制作不能取消');
+                        return;
+                    }
+                    var self = this;
+                    var orderid = $(e.target).parents('li').attr('data-guid');
+                    $.get('http://localhost:88/deleteOrder',{
+                        orderid:orderid
+                    }, function(res){
+                        var $deleteId = $(e.target).parents('li').attr('data-guid');
+                        for(var i = 0;i<self.dataset.length;i++){
+                            if(self.dataset[i].id == $deleteId){
+                                self.dataset.splice(i,1);
+                            }
+                        }
+                    })
+                }                    
+            },
+            account:function(e){
+                // console.log($(e.target));
+                var self = this;
+                var orderid = $(e.target).parents('li').attr('data-guid');
+                $.get('http://localhost:88/account',{
+                    orderid:orderid,
+                    status:"已付款"
+                },function(res){
+                    console.log(res);
+                    $(e.target).parents('li').find('span').eq(0).text('已付款');
+                    self.$socket.emit('wan');
+                    $.get('http://localhost:88/selectONEOrder',{
+                       id:orderid
+                    },function(res){console.log(res);
+                      $.get('http://localhost:88/addTo2His',{
+                          orderid:res[0].id,
+                          totalPrice:res[0].totalPrice,
+                          userid: res[0].userid
+                      },function(res){
+                         console.log(res);
+                      })
+                   })
+                });
+                 
+            }
         },
         sockets:{
-           
             cook: function(){
                 console.log(666)
                var self = this;
@@ -118,7 +165,7 @@
                            // console.log(self.menudata);
                        });
                    }                    
-               })
+                })          
             }
         }
     }
