@@ -36,11 +36,12 @@
                         
                     </td>
                     <td>
-                        <button @click="addOrder($event)" type="button" class="btn btn-primary">加入订单</button>
+                        <button @click="addOrder($event)" type="button" class="btn btn-sm btn-primary">加入订单</button>
                     </td>
                 </tr>
             </tfoot>
         </table>
+        <button  type="button" class="btn btn-xs clearCarlist" @click="clearCarlist">清空购物车</button>
         <div class="isLogin"></div>
     </main>
 </template>
@@ -159,6 +160,15 @@
                 var date=new Date();
                 date.setDate(date.getDate()+7);
                 document.cookie= 'carlist='+JSON.stringify(carlist)+';expires='+date.toUTCString();
+            },
+            // 清空购物车
+            clearCarlist: function(){
+                var carlist = this.dataset;
+                this.dataset = [];
+                var date=new Date();
+                date.setDate(date.getDate()-7);
+                document.cookie= 'carlist='+JSON.stringify(carlist)+';expires='+date.toUTCString();
+                $('.total').text('0.00');
             }
         },
         sockets:{
@@ -181,6 +191,7 @@
             };
             this.dataset = carlist;
             this.totalPrice();
+
         }
     }
 </script>

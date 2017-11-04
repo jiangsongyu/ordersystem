@@ -52,6 +52,7 @@
             };
             // 点击购物车
             $('.menulist').on('click', 'input', function(){
+                // console.log(this);
                 var has=false;
                 //如果carlist里有已经存在的 则qty++，，
                 for(var i=0;i<carlist.length;i++){
