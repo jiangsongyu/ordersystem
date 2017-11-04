@@ -4,7 +4,7 @@
 		    <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names" @keyup.13="search('searchOrder')">
 		    <button type="button" class="btn btn-info" @click.self="search('searchOrder')" >搜索</button>
 		 </div>
-		<datagrid api="getOrder" cols=""></datagrid>
+		<datagrid api="getOrder" cs="status"></datagrid>
 		<fenye api="getAllOrder" apii="fenyeOrder"></fenye>
 	</div>
 </template>
@@ -39,10 +39,11 @@
 			
 			search:function(sh){
 				var self = this;
-				console.log(self.$children[1].dataset)
+				// console.log(self.$children[1].dataset)
 				$.get('http://localhost:88/'+sh,{'names':self.names}, function(data) {
 					console.log(data)
 					self.$children[1].dataset = data;
+					console.log(self.$children[1].dataset)
 					self.names = '';
 				});
 

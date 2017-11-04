@@ -37,11 +37,15 @@ module.exports = {
         }),
         
         app.get('/searchOrder', function(request, response){
-            db.all('select * from orders where title like '+'"%'+request.query.names+'%"', function(rows){
+            db.all('select * from orders where id = '+ '"' +request.query.names+ '"' +' or status like '+'"%'+request.query.names+'%" or userid like '+'"%'+request.query.names+'%" or totalPrice < '+'"'+request.query.names+'"', function(rows){
                 response.send(rows);
-            })    
+            })       
         }),
-        
+        app.get('/hissearch', function(request, response){
+            db.all('select * from history where id = '+ '"' +request.query.names+ '"' +' or orderid ='+ '"' +request.query.names+ '"' + ' or userid like '+'"%'+request.query.names+'%"', function(rows){
+                response.send(rows);
+            })       
+        }),
         app.get('/shanchuOrder', function(request, response){
             // console.log(request.query.id)
             db.all('delete from orders where id='+request.query.id, function(rows){

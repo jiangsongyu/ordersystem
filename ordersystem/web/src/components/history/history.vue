@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="form-group">
-            <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names" @keyup.13="search('search')">
-            <button type="button" class="btn btn-info" @click.self="search('search')" >搜索</button>
+            <input type="text" class="form-control" id="search" placeholder="搜索" v-model="names" @keyup.13="search('hissearch')">
+            <button type="button" class="btn btn-info" @click.self="search('hissearch')" >搜索</button>
          </div>
         <datagrid api="getAllHis" cols=""></datagrid>
         <fenye api="getAllHis" apii="fenyeHis"></fenye>
