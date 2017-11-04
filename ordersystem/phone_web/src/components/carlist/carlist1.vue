@@ -50,7 +50,9 @@
     import http from '../../utils/httpClient.js'
     import loading from '../loading/loading.vue'
     import router from '../../router/index.js'
-    //$children
+    import Vue from 'vue'
+    import io from 'vue-socket.io'
+    Vue.use(io,'http://localhost:888')
     export default {
         data: function(){
             return {
@@ -74,7 +76,7 @@
                     },function(res){
                         router.push({name: 'order'});
                         $('#linkOrder').addClass('active').siblings().removeClass('active');
-                        self.skt();
+                        self.$socket.emit('order');
                     })
                 }else{
                     $('.isLogin').html('您还没有登录，请先登录再下单');
@@ -157,25 +159,14 @@
                 var date=new Date();
                 date.setDate(date.getDate()+7);
                 document.cookie= 'carlist='+JSON.stringify(carlist)+';expires='+date.toUTCString();
-            },
-            skt:function(){
-                var socket = null;
-                socket = new WebSocket('ws://localhost:888');
-                socket.onopen = function(){
-                    socket.send(1);
-                }   
-                socket.onmessage = function(msg){
-                    console.log(msg);
-                }
-                
-                socket.onclose = function(){
-                    socket = null;
-                }
-                socket.onerror = function(){
-                    socket = null;
-                }
             }
         },
+        sockets:{
+            addToCar: function(val){
+                // console.log(this.$socket.id)
+                // io.emit()
+               }
+         },
         mounted: function(){
             var carlist=[];
             var cookies=document.cookie;

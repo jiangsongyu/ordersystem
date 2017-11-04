@@ -47,6 +47,9 @@
 				});
 
 			}
+		},
+		sockects:{
+
 		}
   		
 	}
@@ -55,7 +58,6 @@
 <style lang="scss">
 	.form-group{overflow: hidden;	
 		input{float: left;width: 200px;}
-		/*button{float: left;}*/
 		&:first-child{float: left;}
 		&:nth-child(2){width: 150px;float: right;}
 	}

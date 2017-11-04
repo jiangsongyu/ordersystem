@@ -49,6 +49,9 @@
 	import loading from '../loading/loading.vue'
 	import $ from 'jquery'
 	import Vue from 'vue'
+	import io from 'vue-socket.io'
+	Vue.use(io,'http://localhost:888')
+
 
 	export default {
 		data: function(){
@@ -79,7 +82,7 @@
 						
 					});
 				});
-				self.skt(2);
+				this.$socket.emit('cooking');
 				
 			},
 
@@ -96,7 +99,7 @@
 						e.next('button').show();
 					});
 				});
-				self.skt(3);
+				this.$socket.emit('shangcai');
 					
 			},
 
@@ -118,39 +121,6 @@
 					
 			},
 
-			skt:function(text){
-				var self = this;
-				var socket = null;
-				socket = new WebSocket('ws://localhost:888');
-				socket.onopen = function(){
-					socket.send(text);
-				}
-				socket.onmessage = function(msg){
-					console.log(msg)
-					if(msg.data == 1){	
-						self.open();
-						http.get({
-							url: self.api
-						}).then(res => {
-							self.dataset = res.data;
-							for(var i=0; i<res.data.length;i++){
-							    $.get('http://localhost:88/selectMenu', {
-							        orderid:res.data[i].id
-							    },  function(res1){
-							        self.menudata.push(res1);
-							    });
-							}        
-						})
-					}
-				}
-				
-				socket.onclose = function(){
-					socket = null;
-				}
-				socket.onerror = function(){
-					socket = null;
-				}
-			},
 			open() {
 		        const h = this.$createElement;
 
@@ -162,6 +132,27 @@
 
 			
 		},	
+		sockets:{
+			cc: function(val){
+			   	console.log(this.$socket.id)
+			},
+			newOrder: function(val){
+			   	this.open();
+			   	var self = this;
+			   	http.get({
+			   		url: self.api
+			   	}).then(res => {
+			   		self.dataset = res.data;
+			   		for(var i=0; i<res.data.length;i++){
+			   		    $.get('http://localhost:88/selectMenu', {
+			   		        orderid:res.data[i].id
+			   		    },  function(res1){
+			   		        self.menudata.push(res1);
+			   		    });
+			   		}        
+			   	})
+			}
+		 },
 		props: ['api', 'cols'],
 		mounted: function(){
 			var self = this;
@@ -177,7 +168,15 @@
 				    });
 				}        
 			})
-			self.skt('后台已连接');
+			// self.$nextTick(() => {
+			// 	var sktid = self.$socket.id;
+			// console.log(sktid);
+			// console.log(11,self.$socket)
+			// console.log(11,self.$socket.ids)
+			// console.log(11,self.$socket.id)
+			// })
+			
+			this.$socket.emit('connent');
 		},
 		components: {
 			loading

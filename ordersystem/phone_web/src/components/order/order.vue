@@ -64,37 +64,61 @@
                     });
                 }                    
             })
-            this.skt();
         },
         beforeMount: function(){
             this.userid = localStorage.getItem('userid');
         },
         methods:{
-            skt:function(){
-                var socket = null;
-                socket = new WebSocket('ws://localhost:888');
-                socket.onopen = function(){
-                    socket.send('订单页面已连接');
-                }
-                socket.onmessage = function(msg){
-                    console.log(msg)
-                    if(msg.data == 2){
-                       $('.sta').text('正在制作');              
-                    };
-                    if(msg.data == 3){
-                       $('.sta').text('已上菜');
-                       $('.cbtn').show();              
-                    }
-
-
-                }
-                
-                socket.onclose = function(){
-                    socket = null;
-                }
-                socket.onerror = function(){
-                    socket = null;
-                }
+            
+        },
+        sockets:{
+           
+            cook: function(){
+                console.log(666)
+               var self = this;
+              // 发请求
+              $.get('http://localhost:88/selectOrder',{
+                  userid:self.userid
+              }, function(res){
+                  self.dataset = res;
+                  // console.log(self.dataset);
+                  for(var i=0; i<res.length;i++){
+                      // 订单id搜索对应内容
+                      // console.log(res[i].id);
+                      if(self.dataset.length != 0){
+                          $('.noOrder').css('display', 'none');
+                      }
+                      $.get('http://localhost:88/selectMenu', {
+                          orderid:res[i].id
+                      },  function(res1){
+                          self.menudata.push(res1);
+                          // console.log(self.menudata);
+                      });
+                  }                    
+              })
+            },
+            shangcai: function(){
+                var self = this;
+               // 发请求
+               $.get('http://localhost:88/selectOrder',{
+                   userid:self.userid
+               }, function(res){
+                   self.dataset = res;
+                   // console.log(self.dataset);
+                   for(var i=0; i<res.length;i++){
+                       // 订单id搜索对应内容
+                       // console.log(res[i].id);
+                       if(self.dataset.length != 0){
+                           $('.noOrder').css('display', 'none');
+                       }
+                       $.get('http://localhost:88/selectMenu', {
+                           orderid:res[i].id
+                       },  function(res1){
+                           self.menudata.push(res1);
+                           // console.log(self.menudata);
+                       });
+                   }                    
+               })
             }
         }
     }
