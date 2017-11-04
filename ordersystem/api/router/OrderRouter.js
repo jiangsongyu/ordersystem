@@ -129,6 +129,11 @@ module.exports = {
             db.all('delete from orders where id='+'"'+request.query.orderid+'"', function(rows){
                 response.send(rows);
             })    
+        }),
+        app.get('/account', function(request, response){
+            db.all('UPDATE orders SET status=' + '"' + request.query.status + '"'  + ' WHERE id=' + request.query.orderid, function(rows){
+                response.send(rows);
+            })
         })
 
     }

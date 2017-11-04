@@ -187,10 +187,9 @@
                         carlist = JSON.parse(temp[1]);
                     };
                 })
-                
             };
             this.dataset = carlist;
-            this.totalPrice();console.log(this.dataset);
+            this.totalPrice();
         }
     }
 </script>

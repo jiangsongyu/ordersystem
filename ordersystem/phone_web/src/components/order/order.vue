@@ -23,7 +23,7 @@
                 </table>
                 <p>
                     <span>总价格：{{obj.totalPrice}}元</span>
-                    <span><button type="button" class="btn btn-info btn-xs"@click="deleteOrder($event)">退单</button><button type="button" class="btn btn-info btn-xs">结账</button></span>
+                    <span><button type="button" class="btn btn-info btn-xs"@click="deleteOrder($event)">退单</button><button type="button" class="btn btn-info btn-xs" @click.once="account($event)">结账</button></span>
                 </p>
             </li>
         </ul>
@@ -117,6 +117,17 @@
                 socket.onerror = function(){
                     socket = null;
                 }
+            },
+            account:function(e){
+                // console.log($(e.target));
+                var orderid = $(e.target).parents('li').attr('data-guid');
+                $.get('http://localhost:88/account',{
+                    orderid:orderid,
+                    status:"已付款"
+                },function(res){
+                    console.log(res);
+                    $(e.target).parents('li').find('span').eq(0).text('已付款');
+                })
             }
         }
     }
