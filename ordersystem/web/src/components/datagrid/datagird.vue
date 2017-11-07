@@ -11,7 +11,7 @@
 			<tbody>
 				<tr v-for="(obj, index) in dataset">
 					<td v-for="(value, key) in obj" v-if="(colsArray[0] && colsArray.indexOf(key) > -1) || !colsArray[0]">{{value}}</td>
-					<td><img :src="obj.img" height="100" width="100"/></td>
+					<td><img :src="obj.imgurl" height="100" width="100"/></td>
 					<td>
 						<button type="button" id="updabtn" class="btn btn-success btn-xs upt" @click.self="up($event)">修改</button>
 						<el-dialog title="修改菜品" :visible.sync="dialogFormVisible">

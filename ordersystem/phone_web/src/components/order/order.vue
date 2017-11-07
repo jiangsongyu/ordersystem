@@ -106,16 +106,16 @@
                     // 结账之后后台监听
                     self.$socket.emit('wan');
                     $.get('http://localhost:88/selectONEOrder',{
-                       id:orderid
+                        id:orderid
                     },function(res){console.log(res);
-                      $.get('http://localhost:88/addTo2His',{
-                          orderid:res[0].id,
-                          totalPrice:res[0].totalPrice,
-                          userid: res[0].userid
-                      },function(res){
-                         console.log(res);
-                      })
-                   })
+                        $.get('http://localhost:88/addTo2His',{
+                            orderid:res[0].id,
+                            totalPrice:res[0].totalPrice,
+                            userid: res[0].userid
+                        },function(res){
+                            console.log(res);
+                        })
+                    })
                 });             
             },
             sendRequest:function(){
@@ -140,14 +140,22 @@
         },
         sockets:{
             cook: function(){
-                console.log(666)
+                // console.log(666);
                 var self = this;
                 this.sendRequest();
             },
             shangcai: function(){
                 var self = this;
                // 发请求 
-                this.sendRequest();        
+                this.sendRequest();  
+                $.each(this.dataset, function(idx,item){
+                    if(item.status != '已上菜'){
+                        $('.accountMoney').eq(idx).css('display', 'block');
+                    }
+                    if(item.status != '未付款'){
+                        $('.changeback').eq(idx).css('display', 'block');
+                    }
+                });      
             }
         }
     }
