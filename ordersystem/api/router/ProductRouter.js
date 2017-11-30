@@ -34,7 +34,8 @@ module.exports = {
             var title = request.query.title;
             var imgurl = request.query.imgurl;
             var type = request.query.type;
-            db.all('insert into goods(title,price,imgurl,type) values('+'"'+title+'"'+','+price+','+'"'+imgurl+'"'+','+'"'+type+'"'+')' , function(rows){
+            var des = request.query.des;
+            db.all('insert into goods(title,price,imgurl,type,des) values('+'"'+title+'"'+','+price+','+'"'+imgurl+'"'+','+'"'+type+'"'+ ',' + '"' +des+ '"' +')' , function(rows){
                 response.send(rows);
             })    
         }),
@@ -46,7 +47,7 @@ module.exports = {
         
         app.get('/xiugai', function(request, response){
             console.log(request.query.imgurl)
-            db.all('UPDATE goods SET title=' + '"' + request.query.title + '"' + ', price=' + request.query.price + ', imgurl=' + '"' +request.query.imgurl + '"' + ', type=' + '"' + request.query.type + '"' + ' WHERE id=' + request.query.id, function(rows){
+            db.all('UPDATE `goods` SET `title`=' + '"' + request.query.title + '"' + ', `price`=' + request.query.price + ', `type`=' + '"' + request.query.type + '"' + ' WHERE (`id`=' + request.query.id + ')', function(rows){
                 // console.log(request)
                 response.send(rows);
             })    

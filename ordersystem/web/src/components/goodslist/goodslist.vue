@@ -15,12 +15,14 @@
 		        <el-form-item label="菜品名称" :label-width="formLabelWidth">
 		          <el-input v-model="form.title" auto-complete="off"></el-input>
 		        </el-form-item>
+		         <el-form-item label="菜品简介" :label-width="formLabelWidth">
+		          <el-input v-model="form.des" auto-complete="off"></el-input>
+		        </el-form-item>
 		        <el-form-item label="菜品价格" :label-width="formLabelWidth">
 		          <el-input v-model="form.price" auto-complete="off"></el-input>
 		        </el-form-item>
 		        <el-form-item label="菜品图片" :label-width="formLabelWidth">
 		          <el-input v-model="form.imgurl" auto-complete="off"></el-input>
-		    			
 		        </el-form-item>
 		      </el-form>
 		      <div slot="footer" class="dialog-footer">
@@ -30,7 +32,7 @@
 		    </el-dialog>
 		 </div>
 
-		<datagrid api="getgoods" apii="shanchu" apiii="xiugai" cols="id,title,price,imgurl,type,des"></datagrid>
+		<datagrid api="getgoods" apii="shanchu" apiii="xiugai" cols="id,title,price,type,des"></datagrid>
 		<fenye api="getAll" apii="fenye"></fenye>
 
 	</div>
@@ -56,6 +58,7 @@
 		          title: '',
 		          price: '',
 		          imgurl: '',
+		          des:'',
 		          type: ''
 		        },
 		        formLabelWidth: '120px',
@@ -65,8 +68,9 @@
 		methods:{
 			additem:function(){console.log(6660)	
 				var self = this;console.log(self.form.title);
-				$.get('http://localhost:88/additem',{'type':self.form.type,'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl},function(res){
+				$.get('http://localhost:88/additem',{'type':self.form.type,'title':self.form.title, 'price':self.form.price, 'imgurl':self.form.imgurl,'des':self.form.des},function(res){
 					self.form.title='';
+					self.form.des='';
 					self.form.price='';
 					self.form.imgurl='';
 					self.form.type='';

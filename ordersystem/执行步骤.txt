@@ -1,0 +1,5 @@
+1.在web文件下打开命令行，执行npm run dev。
+2.在phone_web文件下打开命令行，执行npm run dev。
+3.在api文件下打开命令行，执行node server，和node socket。
+
+组员：蒋松谕，梁羽宇，陈青云
