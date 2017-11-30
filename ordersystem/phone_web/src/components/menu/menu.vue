@@ -2,7 +2,7 @@
     <div class="menulist">
         <ul>
             <li v-for="(obj, key) in dataset" :data-guid="obj.id">
-                <img :src="obj.imgurl" alt="" />
+                <img :src="obj.imgurl"/>
                 <p >{{obj.title}}</p>
                 <span>￥{{obj.price}}<input type="button" class="btn btn-info btn-xs" value="加入购物车"/></span>
             </li>
@@ -28,13 +28,6 @@
         props: ['api', 'cols','params'],
         mounted: function(){
             var self = this;
-            /*http.get({
-                url: this.api
-                // params:this.params
-            }).then(res => {
-                self.dataset = res.data;
-                // console.log(self.dataset);
-            })*/
             $.get('http://localhost:88/getmenu', {
                 params:self.params
             },function(res){
@@ -45,13 +38,17 @@
             var carlist=[];
             var cookies=document.cookie;
             if(cookies.length>0){
-                cookies=cookies.split('=');
-                if(cookies[0] === 'carlist'){
-                    carlist = JSON.parse(cookies[1]);
-                }
+                cookies = cookies.split('; ');
+                cookies.forEach(function(cookie){
+                    var temp = cookie.split('=');
+                    if(temp[0] === 'carlist'){
+                        carlist = JSON.parse(temp[1]);
+                    };
+                })
             };
             // 点击购物车
             $('.menulist').on('click', 'input', function(){
+                // console.log(this);
                 var has=false;
                 //如果carlist里有已经存在的 则qty++，，
                 for(var i=0;i<carlist.length;i++){

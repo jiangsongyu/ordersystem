@@ -23,7 +23,7 @@
                 </table>
                 <p>
                     <span>总价格：{{obj.totalPrice}}元</span>
-                    <span><button type="button" class="btn btn-info btn-xs"@click="deleteOrder($event)">退单</button><button type="button" class="btn btn-info btn-xs" @click.once="account($event)">结账</button></span>
+                    <span><button type="button" class="btn btn-info btn-xs changeback"@click="deleteOrder($event)">退单</button><button type="button" class="accountMoney btn btn-info btn-xs" @click.once="account($event)">结账</button></span>
                 </p>
             </li>
         </ul>
@@ -47,28 +47,22 @@
             }
         },
         mounted: function(){
-            var self = this;
             // 发请求
-            $.get('http://localhost:88/selectOrder',{
-                userid:self.userid
-            }, function(res){
-                self.dataset = res;
-                for(var i=0; i<res.length;i++){
-                    // 订单id搜索对应内容
-                    if(self.dataset.length != 0){
-                        $('.noOrder').css('display', 'none');
-                    }
-                    $.get('http://localhost:88/selectMenu', {
-                        orderid:res[i].id
-                    },  function(res1){
-                        self.menudata.push(res1);
-                    });
-                }                    
-
-            })
+            this.sendRequest();
         },
         beforeMount: function(){
             this.userid = localStorage.getItem('userid');
+        },
+        updated:function(){
+            // 是否出现结账按钮
+            $.each(this.dataset, function(idx,item){
+                if(item.status != '已上菜'){
+                    $('.accountMoney').eq(idx).css('display', 'none');
+                }
+                if(item.status != '未付款'){
+                    $('.changeback').eq(idx).css('display', 'none');
+                }
+            });
         },
         methods:{
             deleteOrder:function(e){
@@ -96,76 +90,72 @@
             account:function(e){
                 // console.log($(e.target));
                 var self = this;
+                var status = $(e.target).parents('li').find('span').eq(0).text();
+                if(status == '已付款'){
+                    alert('您已经结账啦');
+                    return;
+                }
                 var orderid = $(e.target).parents('li').attr('data-guid');
                 $.get('http://localhost:88/account',{
                     orderid:orderid,
                     status:"已付款"
                 },function(res){
-                    console.log(res);
-                    $(e.target).parents('li').find('span').eq(0).text('已付款');
+
+                    // 结账后重新请求数据库的内容
+                    self.sendRequest();
+                    // 结账之后后台监听
                     self.$socket.emit('wan');
                     $.get('http://localhost:88/selectONEOrder',{
-                       id:orderid
+                        id:orderid
                     },function(res){console.log(res);
-                      $.get('http://localhost:88/addTo2His',{
-                          orderid:res[0].id,
-                          totalPrice:res[0].totalPrice,
-                          userid: res[0].userid
-                      },function(res){
-                         console.log(res);
-                      })
-                   })
+                        $.get('http://localhost:88/addTo2His',{
+                            orderid:res[0].id,
+                            totalPrice:res[0].totalPrice,
+                            userid: res[0].userid
+                        },function(res){
+                            console.log(res);
+                        })
+                    })
+                });             
+            },
+            sendRequest:function(){
+                var self = this;
+                // 发请求
+                $.get('http://localhost:88/selectOrder',{
+                    userid:self.userid
+                }, function(res){
+                    self.dataset = res;
+                    for(var i=0; i<res.length;i++){
+                        if(self.dataset.length != 0){
+                            $('.noOrder').css('display', 'none');
+                        }
+                        $.get('http://localhost:88/selectMenu', {
+                            orderid:res[i].id
+                        },  function(res1){
+                            self.menudata.push(res1);
+                        });
+                    }                    
                 });
-                 
             }
         },
         sockets:{
             cook: function(){
-                console.log(666)
-               var self = this;
-              // 发请求
-              $.get('http://localhost:88/selectOrder',{
-                  userid:self.userid
-              }, function(res){
-                  self.dataset = res;
-                  // console.log(self.dataset);
-                  for(var i=0; i<res.length;i++){
-                      // 订单id搜索对应内容
-                      // console.log(res[i].id);
-                      if(self.dataset.length != 0){
-                          $('.noOrder').css('display', 'none');
-                      }
-                      $.get('http://localhost:88/selectMenu', {
-                          orderid:res[i].id
-                      },  function(res1){
-                          self.menudata.push(res1);
-                          // console.log(self.menudata);
-                      });
-                  }                    
-              })
+                // console.log(666);
+                var self = this;
+                this.sendRequest();
             },
             shangcai: function(){
                 var self = this;
-               // 发请求
-               $.get('http://localhost:88/selectOrder',{
-                   userid:self.userid
-               }, function(res){
-                   self.dataset = res;
-                   // console.log(self.dataset);
-                   for(var i=0; i<res.length;i++){
-                       // 订单id搜索对应内容
-                       // console.log(res[i].id);
-                       if(self.dataset.length != 0){
-                           $('.noOrder').css('display', 'none');
-                       }
-                       $.get('http://localhost:88/selectMenu', {
-                           orderid:res[i].id
-                       },  function(res1){
-                           self.menudata.push(res1);
-                           // console.log(self.menudata);
-                       });
-                   }                    
-                })          
+               // 发请求 
+                this.sendRequest();  
+                $.each(this.dataset, function(idx,item){
+                    if(item.status != '已上菜'){
+                        $('.accountMoney').eq(idx).css('display', 'block');
+                    }
+                    if(item.status != '未付款'){
+                        $('.changeback').eq(idx).css('display', 'block');
+                    }
+                });      
             }
         }
     }
